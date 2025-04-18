@@ -1,0 +1,6 @@
+@exam_postly_api_HostAddress = http://localhost:5186
+
+GET {{exam_postly_api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
