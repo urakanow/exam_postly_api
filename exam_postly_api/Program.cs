@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
 
 namespace exam_postly_api
 {
@@ -8,6 +10,9 @@ namespace exam_postly_api
             string productionCors = "ProductionCorsPolicy";
 
             var builder = WebApplication.CreateBuilder(args);
+
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseNpgsql(connectionString));
 
             // Add services to the container.
 
@@ -44,7 +49,6 @@ namespace exam_postly_api
             {
                 app.UseCors(productionCors);
             }
-
 
             app.UseAuthorization();
 
