@@ -1,5 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using exam_postly_api.Services;
+
 
 namespace exam_postly_api
 {
@@ -8,11 +13,30 @@ namespace exam_postly_api
         public static void Main(string[] args)
         {
             string productionCors = "ProductionCorsPolicy";
+            string developmentCors = "DevelopmentCorsPolicy";
 
             var builder = WebApplication.CreateBuilder(args);
 
+            
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.FromSeconds(30),
+                    //ClockSkew = TimeSpan.Zero,
+                    ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                    ValidAudience = builder.Configuration["Jwt:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+                };
+            });
+
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseNpgsql(connectionString));
+
+            builder.Services.AddHostedService<RefreshTokenCleanupService>();
 
             // Add services to the container.
 
@@ -31,6 +55,17 @@ namespace exam_postly_api
                 });
             });
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(developmentCors, builder =>
+                {
+                    builder.WithOrigins("http://localhost:3000")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                });
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -39,17 +74,25 @@ namespace exam_postly_api
                 app.MapOpenApi();
             }
 
-            app.UseHttpsRedirection();
+            
+            app.UseRouting();
 
-            if(app.Environment.IsDevelopment())
+            if (app.Environment.IsDevelopment())
             {
-                app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+                app.UseCors(developmentCors);
+                //app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             }
             else
             {
                 app.UseCors(productionCors);
             }
 
+            if (app.Environment.IsProduction())
+            {
+                app.UseHttpsRedirection();
+            }
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
 
