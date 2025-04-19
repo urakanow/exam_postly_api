@@ -3,6 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using exam_postly_api.Services;
 
 
 namespace exam_postly_api
@@ -34,6 +35,8 @@ namespace exam_postly_api
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseNpgsql(connectionString));
+
+            builder.Services.AddHostedService<RefreshTokenCleanupService>();
 
             // Add services to the container.
 
@@ -84,7 +87,10 @@ namespace exam_postly_api
                 app.UseCors(productionCors);
             }
 
-            //app.UseHttpsRedirection();
+            if (app.Environment.IsProduction())
+            {
+                app.UseHttpsRedirection();
+            }
 
             app.UseAuthentication();
             app.UseAuthorization();
