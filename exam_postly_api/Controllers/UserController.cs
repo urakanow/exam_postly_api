@@ -108,7 +108,7 @@ namespace exam_postly_api.Controllers
                 {
                     HttpOnly = true,
                     Secure = true,
-                    SameSite = SameSiteMode.Strict,
+                    SameSite = SameSiteMode.None,
                     Expires = refreshTokenExpiry
                 });
 
@@ -158,7 +158,9 @@ namespace exam_postly_api.Controllers
                 .Include(refreshToken => refreshToken.User)
                 .FirstOrDefaultAsync(token => token.TokenHash == hashedToken && !token.IsRevoked);
 
-            if (storedToken?.ExpiresAt < DateTime.UtcNow) return Unauthorized();
+            if(storedToken == null ) return Unauthorized();
+
+            if (storedToken.ExpiresAt < DateTime.UtcNow) return Unauthorized();
 
             var user = storedToken.User;
             var newAccessToken = GenerateAccessToken(user.Email, user.Id);
@@ -184,7 +186,7 @@ namespace exam_postly_api.Controllers
             {
                 HttpOnly = true,
                 Secure = true,
-                SameSite = SameSiteMode.Strict,
+                SameSite = SameSiteMode.None,
                 Expires = refreshTokenExpiry
             });
 
@@ -205,6 +207,35 @@ namespace exam_postly_api.Controllers
                 return NotFound("user not found");
 
             return Ok(new { user.Id, user.Email, user.Username });
+        }
+
+        [Authorize]
+        [Route("logout")]
+        [HttpPost(Name = "Logout")]
+        public async Task<IActionResult> Logout()
+        {
+            int userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            if (userId == null)
+                return Unauthorized();
+
+            var user = await _dbContext.Users.FindAsync(userId);
+            if (user == null)
+                return NotFound("user not found");
+
+            var refreshToken = Request.Cookies["refreshToken"];
+            if (string.IsNullOrEmpty(refreshToken)) return Unauthorized();
+
+            var hashedToken = Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(refreshToken)));
+            var storedToken = await _dbContext.RefreshTokens
+                .Include(refreshToken => refreshToken.User)
+                .FirstOrDefaultAsync(token => token.TokenHash == hashedToken && !token.IsRevoked);
+
+            if (storedToken?.ExpiresAt < DateTime.UtcNow) return Unauthorized();
+
+            storedToken.IsRevoked = true;
+            await _dbContext.SaveChangesAsync();
+
+            return Ok(new { message = user.Username + " logged out" });
         }
     }
 }
