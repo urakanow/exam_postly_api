@@ -23,7 +23,13 @@ namespace exam_postly_api
                 .WithMany(user => user.RefreshTokens)
                 .HasForeignKey(refreshToken => refreshToken.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
+            
+            modelBuilder.Entity<Offer>().HasKey(offer => offer.Id);
+            modelBuilder.Entity<Offer>()
+                .HasOne(offer => offer.User)
+                .WithMany(user => user.Offers)
+                .HasForeignKey(offer => offer.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
-
     }
 }

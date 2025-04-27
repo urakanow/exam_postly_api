@@ -9,5 +9,14 @@
 
         required
         public double Price { get; set; }
+
+        required
+        public string ImageUrl { get; set; }
+        
+        required
+        public int UserId { get; set; }
+        
+        required
+        public User User { get; set; }
     }
 }

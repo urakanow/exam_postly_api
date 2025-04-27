@@ -22,6 +22,35 @@ namespace exam_postly_api.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("exam_postly_api.Models.Offer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Offers");
+                });
+
             modelBuilder.Entity("exam_postly_api.Models.RefreshToken", b =>
                 {
                     b.Property<int>("Id")
@@ -82,6 +111,17 @@ namespace exam_postly_api.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("exam_postly_api.Models.Offer", b =>
+                {
+                    b.HasOne("exam_postly_api.Models.User", "User")
+                        .WithMany("Offers")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("exam_postly_api.Models.RefreshToken", b =>
                 {
                     b.HasOne("exam_postly_api.Models.User", "User")
@@ -95,6 +135,8 @@ namespace exam_postly_api.Migrations
 
             modelBuilder.Entity("exam_postly_api.Models.User", b =>
                 {
+                    b.Navigation("Offers");
+
                     b.Navigation("RefreshTokens");
                 });
 #pragma warning restore 612, 618
