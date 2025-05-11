@@ -17,5 +17,6 @@
         public string Salt { get; set; }
 
         public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
+        public ICollection<Offer> Offers { get; set; } = new List<Offer>();
     }
 }
