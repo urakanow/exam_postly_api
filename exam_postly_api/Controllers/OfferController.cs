@@ -14,6 +14,7 @@ namespace exam_postly_api.Controllers
     public class OfferController : ControllerBase
     {
         private readonly string cloudinaryUrl = "cloudinary://946252865213996:c9iWNeLr9vVfY2zwYlWFc-mqfyg@dxvwnanu4";
+
         //public Offer[] offers = { new Offer { Title = "product 1", Price = 12.34, ImageUrl = "apple_z0rh3i"}, new Offer { Title = "product 2", Price = 56.78, ImageUrl = "apple_z0rh3i"} };
         private readonly ApplicationDBContext _dbContext;
         private readonly IConfiguration _config;
@@ -45,12 +46,11 @@ namespace exam_postly_api.Controllers
             if (user == null)
                 return NotFound("user not found");
 
-            
 
             Cloudinary cloudinary = new Cloudinary(cloudinaryUrl);
             cloudinary.Api.Secure = true;
             string name = Guid.NewGuid().ToString();
-            
+
             var uploadParams = new ImageUploadParams()
             {
                 // File = new FileDescription(@"https://cloudinary-devs.github.io/cld-docs-assets/assets/images/cld-sample.jpg"),
@@ -65,9 +65,9 @@ namespace exam_postly_api.Controllers
             {
                 return BadRequest();
             }
-            
+
             string imageUrl = uploadResult.JsonObj["original_filename"].ToString();
-            
+
             await _dbContext.Offers.AddAsync(new Offer
             {
                 Title = dto.Title,
@@ -77,7 +77,7 @@ namespace exam_postly_api.Controllers
                 User = user
             });
             await _dbContext.SaveChangesAsync();
-            
+
             return Ok();
         }
 
@@ -90,11 +90,44 @@ namespace exam_postly_api.Controllers
             if (userId == null)
                 return Unauthorized();
 
-            var user = await _dbContext.Users.Include(u => u.Offers).FirstOrDefaultAsync(u => u.Id == userId);;
+            var user = await _dbContext.Users.Include(u => u.Offers).FirstOrDefaultAsync(u => u.Id == userId);
+            ;
             if (user == null)
                 return NotFound("user not found");
-            
+
             return Ok(user.Offers);
+        }
+
+        [Authorize]
+        [Route("delete-offer")]
+        [HttpDelete(Name = "DeleteOffer")]
+        public async Task<ActionResult> DeleteOffer([FromBody] int id)
+        {
+            var offer = await _dbContext.Offers.FindAsync(id);
+
+            if (offer == null)
+            {
+                return NotFound("offer not found");
+            }
+            
+            _dbContext.Offers.Remove(offer);
+            await _dbContext.SaveChangesAsync();
+            
+            return Ok(new { message = "offer deleted"});
+        }
+
+        [Route("offer/{id}")]
+        [HttpGet(Name = "GetOffer")]
+        public async Task<ActionResult> GetOffer( int id)
+        {
+            var offer = await _dbContext.Offers.FindAsync(id);
+            
+            if (offer == null)
+            {
+                return NotFound("offer not found");
+            }
+
+            return Ok(offer);
         }
     }
 }
