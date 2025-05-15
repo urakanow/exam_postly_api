@@ -5,7 +5,7 @@ using CloudinaryDotNet;
 
 namespace exam_postly_api.DTOs;
 
-public class OfferDTO
+public class CreateOfferDTO
 {
     [Required]
     public string Title { get; set; }

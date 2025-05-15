@@ -36,7 +36,7 @@ namespace exam_postly_api.Controllers
         [Authorize]
         [Route("create-offer")]
         [HttpPost(Name = "CreateOffer")]
-        public async Task<ActionResult> CreateOffer([FromForm] OfferDTO dto)
+        public async Task<ActionResult> CreateOffer([FromForm] CreateOfferDTO dto)
         {
             var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             if (userId == null)
@@ -118,7 +118,7 @@ namespace exam_postly_api.Controllers
 
         [Route("offer/{id}")]
         [HttpGet(Name = "GetOffer")]
-        public async Task<ActionResult> GetOffer( int id)
+        public async Task<ActionResult> GetOffer(int id)
         {
             var offer = await _dbContext.Offers.FindAsync(id);
             
@@ -128,6 +128,41 @@ namespace exam_postly_api.Controllers
             }
 
             return Ok(offer);
+        }
+
+        [Authorize]
+        [Route("edit-offer")]
+        [HttpPut(Name = "EditOffer")]
+        public async Task<ActionResult> EditOffer([FromBody] EditOfferDTO dto)
+        {
+            var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            if (userId == 0)
+                return Unauthorized();
+
+            var user = await _dbContext.Users.FindAsync(userId);
+            if (user == null)
+                return NotFound("User not found");
+
+            var offer = await _dbContext.Offers.FindAsync(dto.Id);
+            if (offer == null)
+                return NotFound("Offer not found");
+
+            if (offer.UserId != userId)
+                return Forbid();
+
+            // Alternatively, update properties manually:
+            offer.Title = dto.Title;
+            offer.Price = Convert.ToDouble(dto.Price);
+
+            try
+            {
+                await _dbContext.SaveChangesAsync();
+                return Ok(new { message = "offer edited" });
+            }
+            catch (DbUpdateException ex)
+            {
+                return StatusCode(500, "An error occurred while updating the offer: " + ex.Message);
+            }
         }
     }
 }
