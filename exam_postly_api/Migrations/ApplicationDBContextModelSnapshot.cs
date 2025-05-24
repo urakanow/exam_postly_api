@@ -22,6 +22,28 @@ namespace exam_postly_api.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("exam_postly_api.Models.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("OfferId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OfferId");
+
+                    b.ToTable("Images");
+                });
+
             modelBuilder.Entity("exam_postly_api.Models.Offer", b =>
                 {
                     b.Property<int>("Id")
@@ -30,7 +52,26 @@ namespace exam_postly_api.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ImageUrl")
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("Category")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Contacter")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -111,6 +152,17 @@ namespace exam_postly_api.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("exam_postly_api.Models.Image", b =>
+                {
+                    b.HasOne("exam_postly_api.Models.Offer", "Offer")
+                        .WithMany("Images")
+                        .HasForeignKey("OfferId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Offer");
+                });
+
             modelBuilder.Entity("exam_postly_api.Models.Offer", b =>
                 {
                     b.HasOne("exam_postly_api.Models.User", "User")
@@ -131,6 +183,11 @@ namespace exam_postly_api.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("exam_postly_api.Models.Offer", b =>
+                {
+                    b.Navigation("Images");
                 });
 
             modelBuilder.Entity("exam_postly_api.Models.User", b =>

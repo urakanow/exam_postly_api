@@ -7,15 +7,35 @@ namespace exam_postly_api.DTOs;
 
 public class CreateOfferDTO
 {
-    [Required]
-    public string Title { get; set; }
-    
-    [Required]
-    public string Price { get; set; }
-    
-    // [Required]
-    // public string ImageUrl { get; set; }
-    
-    [Required]
-    public IFormFile Image { get; set; }
+    public int Id { get; set; }
+
+    required
+        public string Title { get; set; }
+        
+    required
+        public string Description { get; set; }
+
+    required
+        public int Category {get; set;}
+        
+    required
+        public double Price { get; set; }
+        
+    required
+        public string Contacter {get; set;}
+        
+    required
+        public string Email {get; set;}
+        
+    required
+        public string PhoneNumber {get; set;}
+        
+    required
+        public string Address {get; set;}
+        
+    // required
+    //     public int UserId { get; set; }
+
+    required
+        public List<IFormFile> Images { get; set; }
 }
