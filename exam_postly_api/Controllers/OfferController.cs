@@ -51,15 +51,18 @@ namespace exam_postly_api.Controllers
             cloudinary.Api.Secure = true;
             string name = Guid.NewGuid().ToString();
 
+            var images = dto.Images.ToList();
+            var image = images[0];
             var uploadParams = new ImageUploadParams()
             {
                 // File = new FileDescription(@"https://cloudinary-devs.github.io/cld-docs-assets/assets/images/cld-sample.jpg"),
                 // File = new FileDescription(@"./Controllers/mango.jpeg"),
-                File = new FileDescription(name, dto.Image.OpenReadStream()),
+                File = new FileDescription(name, image.OpenReadStream()),
                 UseFilename = true,
                 UniqueFilename = false,
                 Overwrite = true
             };
+            
             var uploadResult = cloudinary.Upload(uploadParams);
             if (uploadResult == null)
             {
@@ -68,14 +71,35 @@ namespace exam_postly_api.Controllers
 
             string imageUrl = uploadResult.JsonObj["original_filename"].ToString();
 
-            await _dbContext.Offers.AddAsync(new Offer
+
+            var newOffer = new Offer()
             {
                 Title = dto.Title,
+                Description = dto.Description,
+                Category = dto.Category,
                 Price = Convert.ToDouble(dto.Price),
-                ImageUrl = imageUrl,
                 UserId = user.Id,
-                User = user
-            });
+                Contacter = dto.Contacter,
+                Email = dto.Email,
+                PhoneNumber = dto.PhoneNumber,
+                Address = dto.Address,
+                User = user,
+                Images = new List<Image>() //CHANGE
+            };
+            await _dbContext.Offers.AddAsync(newOffer);
+            await _dbContext.SaveChangesAsync();
+            var newOfferId = newOffer.Id;
+
+            var newImage = new Image()
+            {
+                Url = imageUrl,
+                OfferId = newOfferId,
+                Offer = newOffer
+            };
+            _dbContext.Images.Add(newImage);
+            await _dbContext.SaveChangesAsync();
+            
+            newOffer.Images.Add(newImage);
             await _dbContext.SaveChangesAsync();
 
             return Ok();
@@ -118,7 +142,7 @@ namespace exam_postly_api.Controllers
 
         [Route("offer/{id}")]
         [HttpGet(Name = "GetOffer")]
-        public async Task<ActionResult> GetOffer(int id)
+        public async Task<ActionResult> GetOffer( int id)
         {
             var offer = await _dbContext.Offers.FindAsync(id);
             

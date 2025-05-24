@@ -10,6 +10,7 @@ namespace exam_postly_api
         public DbSet<User> Users { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<Offer> Offers { get; set; }
+        public DbSet<Image> Images { get; set; }
 
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options) { }
 
@@ -29,6 +30,13 @@ namespace exam_postly_api
                 .HasOne(offer => offer.User)
                 .WithMany(user => user.Offers)
                 .HasForeignKey(offer => offer.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+            
+            modelBuilder.Entity<Image>().HasKey(image => image.Id);
+            modelBuilder.Entity<Image>()
+                .HasOne(image => image.Offer)
+                .WithMany(offer => offer.Images)
+                .HasForeignKey(image => image.OfferId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }
