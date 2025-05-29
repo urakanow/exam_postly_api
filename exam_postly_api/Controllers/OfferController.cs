@@ -115,7 +115,6 @@ namespace exam_postly_api.Controllers
                 return Unauthorized();
 
             var user = await _dbContext.Users.Include(u => u.Offers).FirstOrDefaultAsync(u => u.Id == userId);
-            ;
             if (user == null)
                 return NotFound("user not found");
 
@@ -144,7 +143,10 @@ namespace exam_postly_api.Controllers
         [HttpGet(Name = "GetOffer")]
         public async Task<ActionResult> GetOffer( int id)
         {
-            var offer = await _dbContext.Offers.FindAsync(id);
+            // var offer = await _dbContext.Offers.FindAsync(id);
+            var offer = await _dbContext.Offers
+                .Include(o => o.Images) // Eager load the User
+                .FirstOrDefaultAsync(o => o.Id == id);
             
             if (offer == null)
             {
@@ -187,6 +189,25 @@ namespace exam_postly_api.Controllers
             {
                 return StatusCode(500, "An error occurred while updating the offer: " + ex.Message);
             }
+        }
+
+        [Route("filtered-offers")]
+        [HttpGet(Name = "GetFilteredOffers")]
+        public async Task<ActionResult<IEnumerable<Offer>>> GetFilteredOffers([FromQuery] OfferFilterDTO filters)
+        {
+            var query = _dbContext.Offers.Include(o => o.Images).AsQueryable();
+    
+            if (filters.CategoryId.HasValue)
+            {
+                query = query.Where(o => o.Category == filters.CategoryId.Value);
+            }
+    
+            var results = await query
+                .Skip((filters.Page - 1) * filters.PageSize)
+                .Take(filters.PageSize)
+                .ToListAsync();
+    
+            return Ok(results);
         }
     }
 }
