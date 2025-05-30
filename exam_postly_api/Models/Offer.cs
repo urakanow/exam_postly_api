@@ -3,6 +3,10 @@
     public class Offer
     {
         public int Id { get; set; }
+        public DateTime CreationDate { get; set; } = DateTime.UtcNow;
+        
+        required 
+            public int State { get; set; }
 
         required
         public string Title { get; set; }

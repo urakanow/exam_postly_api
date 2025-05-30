@@ -45,36 +45,11 @@ namespace exam_postly_api.Controllers
             var user = await _dbContext.Users.FindAsync(userId);
             if (user == null)
                 return NotFound("user not found");
-
-
-            Cloudinary cloudinary = new Cloudinary(cloudinaryUrl);
-            cloudinary.Api.Secure = true;
-            string name = Guid.NewGuid().ToString();
-
-            var images = dto.Images.ToList();
-            var image = images[0];
-            var uploadParams = new ImageUploadParams()
-            {
-                // File = new FileDescription(@"https://cloudinary-devs.github.io/cld-docs-assets/assets/images/cld-sample.jpg"),
-                // File = new FileDescription(@"./Controllers/mango.jpeg"),
-                File = new FileDescription(name, image.OpenReadStream()),
-                UseFilename = true,
-                UniqueFilename = false,
-                Overwrite = true
-            };
             
-            var uploadResult = cloudinary.Upload(uploadParams);
-            if (uploadResult == null)
-            {
-                return BadRequest();
-            }
-
-            string imageUrl = uploadResult.JsonObj["original_filename"].ToString();
-
-
             var newOffer = new Offer()
             {
                 Title = dto.Title,
+                State = dto.State,
                 Description = dto.Description,
                 Category = dto.Category,
                 Price = Convert.ToDouble(dto.Price),
@@ -90,17 +65,43 @@ namespace exam_postly_api.Controllers
             await _dbContext.SaveChangesAsync();
             var newOfferId = newOffer.Id;
 
-            var newImage = new Image()
+            Cloudinary cloudinary = new Cloudinary(cloudinaryUrl);
+            cloudinary.Api.Secure = true;
+
+            var images = dto.Images.ToList();
+
+            for (int i = 0; i < images.Count; i++)
             {
-                Url = imageUrl,
-                OfferId = newOfferId,
-                Offer = newOffer
-            };
-            _dbContext.Images.Add(newImage);
-            await _dbContext.SaveChangesAsync();
-            
-            newOffer.Images.Add(newImage);
-            await _dbContext.SaveChangesAsync();
+                var image = images[i];
+                string name = Guid.NewGuid().ToString();
+                var uploadParams = new ImageUploadParams()
+                {
+                    File = new FileDescription(name, image.OpenReadStream()),
+                    UseFilename = true,
+                    UniqueFilename = false,
+                    Overwrite = true
+                };
+
+                var uploadResult = cloudinary.Upload(uploadParams);
+                if (uploadResult == null)
+                {
+                    return BadRequest();
+                }
+
+                string imageUrl = uploadResult.JsonObj["original_filename"].ToString();
+
+                var newImage = new Image()
+                {
+                    Url = imageUrl,
+                    OfferId = newOfferId,
+                    Offer = newOffer
+                };
+                _dbContext.Images.Add(newImage);
+                await _dbContext.SaveChangesAsync();
+
+                newOffer.Images.Add(newImage);
+                await _dbContext.SaveChangesAsync();
+            }
 
             return Ok();
         }
@@ -206,8 +207,10 @@ namespace exam_postly_api.Controllers
                 .Skip((filters.Page - 1) * filters.PageSize)
                 .Take(filters.PageSize)
                 .ToListAsync();
-    
-            return Ok(results);
+
+            var offerPreviews = results.Select(r => new OfferPreviewDTO(r)).ToList();
+            
+            return Ok(offerPreviews);
         }
     }
 }
