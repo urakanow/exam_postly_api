@@ -202,11 +202,49 @@ namespace exam_postly_api.Controllers
             if (userId == null)
                 return Unauthorized();
 
-            var user = await _dbContext.Users.FindAsync(userId);
+            var user = await _dbContext.Users
+                .Include(u => u.Offers)
+                .ThenInclude(o => o.Images)
+                .FirstOrDefaultAsync(u => u.Id == userId);
             if (user == null)
                 return NotFound("user not found");
 
-            return Ok(new { user.Id, user.Email, user.Username });
+            var personalPageData = new PersonalPageDTO(user);
+
+            return Ok(personalPageData);
+        }
+
+        [Authorize]
+        [Route("edit-personal-data")]
+        [HttpPut(Name = "EditPersonalData")]
+        public async Task<IActionResult> EditPersonalData([FromBody] PersonalDataDTO dto)
+        {
+            var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            if (userId == null)
+                return Unauthorized();
+
+            var user = await _dbContext.Users.FindAsync(userId);
+            if (user == null)
+                return NotFound("user not found");
+            
+            user.FirstName = dto.FirstName;
+            user.LastName = dto.LastName;
+            user.City = dto.City;
+            user.PostCode = dto.PostCode;
+            user.Address = dto.Address;
+            user.ApartmentNumber = dto.ApartmentNumber;
+            user.Email = dto.Email;
+            user.PhoneNumber = dto.PhoneNumber;
+            
+            try
+            {
+                await _dbContext.SaveChangesAsync();
+                return Ok(new { message = "user data edited" });
+            }
+            catch (DbUpdateException ex)
+            {
+                return StatusCode(500, "An error occurred while updating the user: " + ex.Message);
+            }
         }
 
         [Authorize]
