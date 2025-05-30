@@ -246,6 +246,26 @@ namespace exam_postly_api.Controllers
                 return StatusCode(500, "An error occurred while updating the user: " + ex.Message);
             }
         }
+        
+        [Authorize]
+        [Route("get-personal-data")]
+        [HttpGet(Name = "GetPersonalData")]
+        public async Task<IActionResult> GetPersonalData()
+        {
+            var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            if (userId == null)
+                return Unauthorized();
+
+            var user = await _dbContext.Users.FindAsync(userId);
+            if (user == null)
+                return NotFound("user not found");
+            
+            return Ok(new PersonalDataDTO(user)
+            {
+                Username = user.Username,
+                Email = user.Email
+            });
+        }
 
         [Authorize]
         [Route("logout")]

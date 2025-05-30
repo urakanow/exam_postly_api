@@ -8,6 +8,8 @@ namespace exam_postly_api.DTOs;
 public class CreateOfferDTO
 {
     public int Id { get; set; }
+    required 
+        public int State { get; set; }
 
     required
         public string Title { get; set; }
