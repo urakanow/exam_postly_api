@@ -40,5 +40,7 @@
 
         required
             public ICollection<Image> Images { get; set; } = new List<Image>();
+        
+        public ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
     }
 }
