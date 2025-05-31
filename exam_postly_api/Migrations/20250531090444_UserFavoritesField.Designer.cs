@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using exam_postly_api;
@@ -11,9 +12,11 @@ using exam_postly_api;
 namespace exam_postly_api.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250531090444_UserFavoritesField")]
+    partial class UserFavoritesField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,29 +24,6 @@ namespace exam_postly_api.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("exam_postly_api.Models.Favorite", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("OfferId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OfferId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Favorites");
-                });
 
             modelBuilder.Entity("exam_postly_api.Models.Image", b =>
                 {
@@ -114,9 +94,14 @@ namespace exam_postly_api.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("UserId1")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Offers");
                 });
@@ -209,25 +194,6 @@ namespace exam_postly_api.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("exam_postly_api.Models.Favorite", b =>
-                {
-                    b.HasOne("exam_postly_api.Models.Offer", "Offer")
-                        .WithMany("Favorites")
-                        .HasForeignKey("OfferId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("exam_postly_api.Models.User", "User")
-                        .WithMany("Favorites")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Offer");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("exam_postly_api.Models.Image", b =>
                 {
                     b.HasOne("exam_postly_api.Models.Offer", "Offer")
@@ -247,6 +213,10 @@ namespace exam_postly_api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("exam_postly_api.Models.User", null)
+                        .WithMany("Favorites")
+                        .HasForeignKey("UserId1");
+
                     b.Navigation("User");
                 });
 
@@ -263,8 +233,6 @@ namespace exam_postly_api.Migrations
 
             modelBuilder.Entity("exam_postly_api.Models.Offer", b =>
                 {
-                    b.Navigation("Favorites");
-
                     b.Navigation("Images");
                 });
 

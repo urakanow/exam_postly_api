@@ -26,5 +26,6 @@
 
         public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
         public ICollection<Offer> Offers { get; set; } = new List<Offer>();
+        public ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
     }
 }
