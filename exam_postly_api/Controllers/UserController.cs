@@ -287,7 +287,8 @@ namespace exam_postly_api.Controllers
             var storedToken = await _dbContext.RefreshTokens
                 .Include(refreshToken => refreshToken.User)
                 .FirstOrDefaultAsync(token => token.TokenHash == hashedToken && !token.IsRevoked);
-
+            
+            if(storedToken == null) return Unauthorized();
             if (storedToken?.ExpiresAt < DateTime.UtcNow) return Unauthorized();
 
             storedToken.IsRevoked = true;
