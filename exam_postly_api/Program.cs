@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json.Serialization;
+using exam_postly_api.Interfaces;
 using exam_postly_api.Services;
+using exam_postly_api.Utilities;
 
 
 namespace exam_postly_api
@@ -17,7 +19,6 @@ namespace exam_postly_api
             string developmentCors = "DevelopmentCorsPolicy";
 
             var builder = WebApplication.CreateBuilder(args);
-
             
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
@@ -38,6 +39,8 @@ namespace exam_postly_api
             builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseNpgsql(connectionString));
 
             builder.Services.AddHostedService<RefreshTokenCleanupService>();
+            builder.Services.AddHostedService<RestoreTokenCleanupService>();
+            builder.Services.AddTransient<IEmailSender, EmailSender>();
 
             // Add services to the container.
 

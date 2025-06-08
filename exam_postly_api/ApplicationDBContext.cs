@@ -12,6 +12,7 @@ namespace exam_postly_api
         public DbSet<Offer> Offers { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Favorite> Favorites { get; set; }
+        public DbSet<RestoreToken> RestoreTokens { get; set; }
 
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options) { }
 
@@ -50,6 +51,13 @@ namespace exam_postly_api
                 .HasOne(favor => favor.Offer)
                 .WithMany(offer => offer.Favorites)
                 .HasForeignKey(favor => favor.OfferId)
+                .OnDelete(DeleteBehavior.Cascade);
+            
+            modelBuilder.Entity<RestoreToken>().HasKey(restoreToken => restoreToken.Id);
+            modelBuilder.Entity<RestoreToken>()
+                .HasOne(restoreToken => restoreToken.User)
+                .WithMany(user => user.RestoreTokens)
+                .HasForeignKey(restoreToken => restoreToken.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

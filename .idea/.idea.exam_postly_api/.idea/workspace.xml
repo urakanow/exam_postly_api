@@ -9,7 +9,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="25e9feee-7318-41dd-8465-36f7c1b59326" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/exam_postly_api/DTOs/RestorePasswordDTO.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exam_postly_api/Interfaces/IEmailSender.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exam_postly_api/Models/RestoreToken.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exam_postly_api/Services/RestoreTokenCleanupService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exam_postly_api/Utilities/EmailSender.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.exam_postly_api/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.exam_postly_api/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.exam_postly_api/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.exam_postly_api/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_postly_api/ApplicationDBContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/ApplicationDBContext.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exam_postly_api/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Controllers/UserController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_postly_api/DTOs/LoginDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/DTOs/LoginDTO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_postly_api/DTOs/UserCreateDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/DTOs/UserCreateDTO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_postly_api/Migrations/ApplicationDBContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Migrations/ApplicationDBContextModelSnapshot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_postly_api/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Models/User.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_postly_api/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_postly_api/Services/RefreshTokenCleanupService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Services/RefreshTokenCleanupService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +49,7 @@
     </favorite-branches>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="fix_production_deploy" />
+        <entry key="$PROJECT_DIR$" value="dev" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -63,8 +77,8 @@
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Models/Offer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Models/RefreshToken.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Models/User.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock:///home/ur1nda/RiderProjects/exam_postly_api/exam_postly_api/Program.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Program.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/exam_postly_api/Utilities/EmailSender.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -84,7 +98,7 @@
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;fix__authorization&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -170,7 +184,20 @@
       <workItem from="1748698112934" duration="418000" />
       <workItem from="1748699871186" duration="2000" />
       <workItem from="1748718552739" duration="2369000" />
-      <workItem from="1748762625939" duration="1104000" />
+      <workItem from="1748762625939" duration="2269000" />
+      <workItem from="1748783624814" duration="9820000" />
+      <workItem from="1748889488815" duration="2532000" />
+      <workItem from="1749040962117" duration="1367000" />
+      <workItem from="1749139806201" duration="1763000" />
+      <workItem from="1749142514431" duration="2283000" />
+      <workItem from="1749194844941" duration="2264000" />
+      <workItem from="1749225283746" duration="4453000" />
+      <workItem from="1749237702181" duration="529000" />
+      <workItem from="1749280772307" duration="4587000" />
+      <workItem from="1749318077361" duration="1422000" />
+      <workItem from="1749322628628" duration="1063000" />
+      <workItem from="1749364261703" duration="3421000" />
+      <workItem from="1749408894707" duration="2193000" />
     </task>
     <task id="LOCAL-00001" summary="added offer editing">
       <option name="closed" value="true" />
@@ -244,7 +271,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748694818972</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="removed a null check">
+      <option name="closed" value="true" />
+      <created>1748781494071</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1748781494071</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -274,7 +309,8 @@
     <MESSAGE value="added all sensitive data to appsettings.json for a test" />
     <MESSAGE value="commented out cleanup service start for a test" />
     <MESSAGE value="changed jwt values" />
-    <option name="LAST_COMMIT_MESSAGE" value="changed jwt values" />
+    <MESSAGE value="removed a null check" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed a null check" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -293,5 +329,9 @@
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
