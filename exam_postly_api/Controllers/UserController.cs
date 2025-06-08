@@ -8,7 +8,10 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using exam_postly_api.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace exam_postly_api.Controllers
 {
@@ -18,11 +21,13 @@ namespace exam_postly_api.Controllers
     {
         private readonly ApplicationDBContext _dbContext;
         private readonly IConfiguration _config;
+        private readonly IEmailSender _emailSender;
 
-        public UserController(ApplicationDBContext dbContext, IConfiguration config)
+        public UserController(ApplicationDBContext dbContext, IConfiguration config, IEmailSender emailSender)
         {
             _dbContext = dbContext;
             _config = config;
+            this._emailSender = emailSender;
         }
 
         [Route("users")]
@@ -39,9 +44,9 @@ namespace exam_postly_api.Controllers
         {
             try
             {
-                if (_dbContext.Users.Any(user => user.Email == dto.Email))
+                if (_dbContext.Users.Any(user => user.PhoneNumber == dto.PhoneNumber))
                 {
-                    return Conflict(new { message = "User with this email already exists" });
+                    return Conflict(new { message = "User with this phone number already exists" });
                 }
                 var saltPasswordPair = PasswordEncryptor.EncryptPassword(dto.Password);
                 string hashedPassword = saltPasswordPair.hashedPassword;
@@ -52,6 +57,7 @@ namespace exam_postly_api.Controllers
                 {
                     Username = dto.Username,
                     Email = dto.Email,
+                    PhoneNumber = dto.PhoneNumber,
                     PasswordHash = hashedPassword,
                     Salt = salt
                 };
@@ -59,7 +65,7 @@ namespace exam_postly_api.Controllers
                 await _dbContext.Users.AddAsync(user);
                 await _dbContext.SaveChangesAsync();
 
-                return await AuthenticateUser(new LoginDTO { Email = dto.Email, Password = dto.Password });
+                return await AuthenticateUser(new LoginDTO { Username = dto.Username, Password = dto.Password });
                 //return Ok("user created succesfully");
             }
             catch (Exception ex)
@@ -72,12 +78,12 @@ namespace exam_postly_api.Controllers
         [HttpPost(Name = "AuthenticateUser")]
         public async Task<ActionResult> AuthenticateUser([FromBody] LoginDTO dto)
         {
-            string email = dto.Email;
+            string username = dto.Username;
             string password = dto.Password;
 
             try
             {
-                var user = await _dbContext.Users.FirstOrDefaultAsync(user => user.Email == email);
+                var user = await _dbContext.Users.FirstOrDefaultAsync(user => user.Username == username);
                 if (user == null)
                 {
                     return Unauthorized(new { message = "Wrong email or password" });
@@ -287,13 +293,111 @@ namespace exam_postly_api.Controllers
             var storedToken = await _dbContext.RefreshTokens
                 .Include(refreshToken => refreshToken.User)
                 .FirstOrDefaultAsync(token => token.TokenHash == hashedToken && !token.IsRevoked);
-
+            
+            if(storedToken == null) return Unauthorized();
             if (storedToken?.ExpiresAt < DateTime.UtcNow) return Unauthorized();
 
             storedToken.IsRevoked = true;
             await _dbContext.SaveChangesAsync();
 
             return Ok(new { message = user.Username + " logged out" });
+        }
+
+        private readonly string token = "secret-token";
+
+        [Route("forgot-password")]
+        [HttpPost(Name = "ForgotPassword")]
+        public async Task<IActionResult> ForgotPassword([FromBody] string email)
+        {
+            var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if(user == null) return Unauthorized(new { message = "no user with corresponding email found" });
+            
+            // var tokenString = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
+            // var encodedTokenString = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(tokenString));
+            var tokenBytes = RandomNumberGenerator.GetBytes(32);
+            var encodedTokenString = WebEncoders.Base64UrlEncode(tokenBytes); // Direct to URL-safe
+
+            var token = new RestoreToken
+            {
+                Token = encodedTokenString,
+                UserId = user.Id,
+                User = user
+            };
+            
+            await _dbContext.RestoreTokens.AddAsync(token);
+            await _dbContext.SaveChangesAsync();
+            
+            var frontendUrl = _config["Routing:FrontendUrl"];
+            var message = frontendUrl + "/restore-password?token=" + token.Token;
+            
+            await _emailSender.SendEmailAsync(email, "password restoration", message);
+            return Ok();
+        }
+
+        [Route("validate-restore-token")]
+        [HttpPost(Name = "ValidateRestoreToken")]
+        public async Task<IActionResult> ValidateRestoreToken([FromBody] string token)
+        {
+            // var encodedTokenString = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
+            // Console.WriteLine(encodedTokenString);
+            
+            var storedToken = await _dbContext.RestoreTokens.FirstOrDefaultAsync(restoreToken => restoreToken.Token == token);
+            if(storedToken == null) return Unauthorized(new { message = "restore token not found" });
+            if (storedToken.ExpiresAt < DateTime.UtcNow) return Unauthorized(new { message = "restore token is expired" });
+            //
+            // var storedTokenString = storedToken.Token;
+            //
+            // if(storedTokenString != token) return Unauthorized(new { message = "tokens don't match" });
+            return Ok(new { message = "restore token validated" });
+        }
+
+        [Route("restore-password")]
+        [HttpPost(Name = "RestorePassword")]
+        public async Task<IActionResult> RestorePassword([FromBody] RestorePasswordDTO dto)
+        {
+            var validationResult = await ValidateRestoreToken(dto.token);
+
+            try
+            {
+                if (validationResult.GetType() == typeof(OkObjectResult))
+                {
+                    var storedToken = _dbContext.RestoreTokens
+                        .Include(token => token.User)
+                        .FirstOrDefault(t => t.Token == dto.token);
+                    var user = storedToken.User;
+                    
+                    var saltPasswordPair = PasswordEncryptor.EncryptPassword(dto.newPassword);
+                    string hashedPassword = saltPasswordPair.hashedPassword;
+                    string salt = saltPasswordPair.salt;
+                    
+                    user.Salt = salt;
+                    user.PasswordHash = hashedPassword;
+                    
+                    _dbContext.RestoreTokens.Remove(storedToken);
+                    
+                    await _dbContext.SaveChangesAsync();
+                    
+                    return Ok(new { message = "password restored. new password: " + dto.newPassword });
+                }
+                
+                if (validationResult.GetType() == typeof(UnauthorizedResult))
+                {
+                    return Unauthorized(new { message = "invalid restore token" });
+                }
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, new { message = e.Message });
+            }
+            
+            return StatusCode(500, new { message = "unexpected error" });
+        }
+        
+        [Route("email-verification")]
+        [HttpPost(Name = "EmailVerification")]
+        public async Task<IActionResult> EmailVerification([FromBody] string email)
+        {
+            
         }
     }
 }
