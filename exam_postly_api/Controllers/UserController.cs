@@ -65,13 +65,70 @@ namespace exam_postly_api.Controllers
                 await _dbContext.Users.AddAsync(user);
                 await _dbContext.SaveChangesAsync();
 
-                return await AuthenticateUser(new LoginDTO { Username = dto.Username, Password = dto.Password });
-                //return Ok("user created succesfully");
+                var tokenBytes = RandomNumberGenerator.GetBytes(32);
+                var encodedTokenString = WebEncoders.Base64UrlEncode(tokenBytes); // Direct to URL-safe
+                var token = new VerifyToken()
+                {
+                    Token = encodedTokenString,
+                    UserId = user.Id,
+                    User = user
+                };
+                
+                await _dbContext.VerifyTokens.AddAsync(token);
+                await _dbContext.SaveChangesAsync();
+                
+                var frontendUrl = _config["Routing:FrontendUrl"];
+                var verificationLink = frontendUrl + "/verify-email?token=" + encodedTokenString;
+                
+                await _emailSender.SendEmailAsync(dto.Email, "email verification", "Для верифікації акаунту перейдіть за цим посиланням: " + verificationLink);
+                // return await AuthenticateUser(new LoginDTO { Username = dto.Username, Password = dto.Password });
+                return Ok();
             }
             catch (Exception ex)
             {
                 return BadRequest(new { message = "Unexpected error: " + ex.Message });
             }
+        }
+
+        [Route("verify-email")]
+        [HttpPost(Name = "VerifyEmail")]
+        public async Task<ActionResult> VerifyEmail([FromBody] string token)
+        {
+            var storedToken = await _dbContext.VerifyTokens
+                .Include(t => t.User)
+                .FirstOrDefaultAsync(t => t.Token == token);
+            if (storedToken == null) return Unauthorized(new  { message = "Token not found" });
+            
+            var user = storedToken.User;
+            user.IsVerified = true;
+            await _dbContext.SaveChangesAsync();
+            
+            // _dbContext.VerifyTokens.Remove(storedToken);
+            // await _dbContext.SaveChangesAsync();
+            
+            return Ok();
+        }
+
+        [Authorize]
+        [Route("delete-user")]
+        [HttpDelete(Name = "DeleteUser")]
+        public async Task<ActionResult> DeleteUser()
+        {
+            var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            if (userId == null)
+                return Unauthorized();
+
+            var user = await _dbContext.Users
+                .Include(u => u.Offers)
+                .ThenInclude(o => o.Images)
+                .FirstOrDefaultAsync(u => u.Id == userId);
+            if (user == null)
+                return NotFound("user not found");
+            
+            _dbContext.Users.Remove(user);
+            await _dbContext.SaveChangesAsync();
+            
+            return Ok();
         }
 
         [Route("signin")]
@@ -87,6 +144,11 @@ namespace exam_postly_api.Controllers
                 if (user == null)
                 {
                     return Unauthorized(new { message = "Wrong email or password" });
+                }
+
+                if (!user.IsVerified)
+                {
+                    return Unauthorized(new { message = "You must verify the account first" });
                 }
 
                 if (!PasswordEncryptor.VerifyPassword(password, user.PasswordHash, user.Salt))
@@ -390,14 +452,14 @@ namespace exam_postly_api.Controllers
                 return StatusCode(500, new { message = e.Message });
             }
             
-            return StatusCode(500, new { message = "unexpected error" });
+            return validationResult;
         }
         
-        [Route("email-verification")]
-        [HttpPost(Name = "EmailVerification")]
-        public async Task<IActionResult> EmailVerification([FromBody] string email)
-        {
-            
-        }
+        // [Route("email-verification")]
+        // [HttpPost(Name = "EmailVerification")]
+        // public async Task<IActionResult> EmailVerification([FromBody] string email)
+        // {
+        //     
+        // }
     }
 }

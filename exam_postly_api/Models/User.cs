@@ -25,9 +25,12 @@
         public string PostCode { get; set; } = "";
         public string Address { get; set; } = "";
         public string ApartmentNumber { get; set; } = "";
+        public DateTime CreatedAt { get; set; } =  DateTime.UtcNow;
+        public bool IsVerified { get; set; } = false;
         public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
         public ICollection<Offer> Offers { get; set; } = new List<Offer>();
         public ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
         public ICollection<RestoreToken> RestoreTokens { get; set; } = new List<RestoreToken>();
+        public VerifyToken? VerifyToken { get; set; } =  null;
     }
 }

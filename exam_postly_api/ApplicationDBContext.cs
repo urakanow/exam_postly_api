@@ -13,6 +13,7 @@ namespace exam_postly_api
         public DbSet<Image> Images { get; set; }
         public DbSet<Favorite> Favorites { get; set; }
         public DbSet<RestoreToken> RestoreTokens { get; set; }
+        public DbSet<VerifyToken> VerifyTokens { get; set; }
 
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options) { }
 
@@ -58,6 +59,14 @@ namespace exam_postly_api
                 .HasOne(restoreToken => restoreToken.User)
                 .WithMany(user => user.RestoreTokens)
                 .HasForeignKey(restoreToken => restoreToken.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+            
+            modelBuilder.Entity<VerifyToken>().HasKey(verifyToken => verifyToken.Id);
+            modelBuilder.Entity<VerifyToken>()
+                .HasOne(verifyToken => verifyToken.User)
+                .WithOne(user => user.VerifyToken)
+                // .IsRequired()
+                .HasForeignKey<VerifyToken>(verifyToken => verifyToken.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

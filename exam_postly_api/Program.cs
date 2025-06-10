@@ -40,6 +40,7 @@ namespace exam_postly_api
 
             builder.Services.AddHostedService<RefreshTokenCleanupService>();
             builder.Services.AddHostedService<RestoreTokenCleanupService>();
+            builder.Services.AddHostedService<VerifyTokenCleanupService>();
             builder.Services.AddTransient<IEmailSender, EmailSender>();
 
             // Add services to the container.

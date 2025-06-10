@@ -9,21 +9,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="25e9feee-7318-41dd-8465-36f7c1b59326" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/exam_postly_api/DTOs/RestorePasswordDTO.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exam_postly_api/Interfaces/IEmailSender.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exam_postly_api/Models/RestoreToken.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exam_postly_api/Services/RestoreTokenCleanupService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exam_postly_api/Utilities/EmailSender.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.exam_postly_api/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.exam_postly_api/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exam_postly_api/Models/VerifyToken.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exam_postly_api/Services/VerifyTokenCleanupService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.exam_postly_api/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.exam_postly_api/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exam_postly_api/ApplicationDBContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/ApplicationDBContext.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exam_postly_api/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Controllers/UserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_postly_api/DTOs/LoginDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/DTOs/LoginDTO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_postly_api/DTOs/UserCreateDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/DTOs/UserCreateDTO.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exam_postly_api/Migrations/ApplicationDBContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Migrations/ApplicationDBContextModelSnapshot.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exam_postly_api/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Models/User.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exam_postly_api/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_postly_api/Services/RefreshTokenCleanupService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Services/RefreshTokenCleanupService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,8 +70,8 @@
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Models/Offer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Models/RefreshToken.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Models/User.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/exam_postly_api/Models/VerifyToken.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Program.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/exam_postly_api/Utilities/EmailSender.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -92,22 +85,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Launch Settings Profile.exam_postly_api: https.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;fix__authorization&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Launch Settings Profile.exam_postly_api: https.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "feature__email__verification",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.exam_postly_api: https">
     <configuration name="exam_postly_api: http" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/exam_postly_api/exam_postly_api.csproj" />
@@ -184,20 +177,10 @@
       <workItem from="1748698112934" duration="418000" />
       <workItem from="1748699871186" duration="2000" />
       <workItem from="1748718552739" duration="2369000" />
-      <workItem from="1748762625939" duration="2269000" />
-      <workItem from="1748783624814" duration="9820000" />
-      <workItem from="1748889488815" duration="2532000" />
-      <workItem from="1749040962117" duration="1367000" />
-      <workItem from="1749139806201" duration="1763000" />
-      <workItem from="1749142514431" duration="2283000" />
-      <workItem from="1749194844941" duration="2264000" />
-      <workItem from="1749225283746" duration="4453000" />
-      <workItem from="1749237702181" duration="529000" />
-      <workItem from="1749280772307" duration="4587000" />
-      <workItem from="1749318077361" duration="1422000" />
-      <workItem from="1749322628628" duration="1063000" />
-      <workItem from="1749364261703" duration="3421000" />
-      <workItem from="1749408894707" duration="2193000" />
+      <workItem from="1748762625939" duration="1104000" />
+      <workItem from="1749454316076" duration="5721000" />
+      <workItem from="1749472722266" duration="5521000" />
+      <workItem from="1749546174272" duration="3526000" />
     </task>
     <task id="LOCAL-00001" summary="added offer editing">
       <option name="closed" value="true" />
@@ -271,15 +254,7 @@
       <option name="project" value="LOCAL" />
       <updated>1748694818972</updated>
     </task>
-    <task id="LOCAL-00010" summary="removed a null check">
-      <option name="closed" value="true" />
-      <created>1748781494071</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1748781494071</updated>
-    </task>
-    <option name="localTasksCounter" value="11" />
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -309,8 +284,7 @@
     <MESSAGE value="added all sensitive data to appsettings.json for a test" />
     <MESSAGE value="commented out cleanup service start for a test" />
     <MESSAGE value="changed jwt values" />
-    <MESSAGE value="removed a null check" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed a null check" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed jwt values" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -329,9 +303,5 @@
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
   </component>
 </project>
