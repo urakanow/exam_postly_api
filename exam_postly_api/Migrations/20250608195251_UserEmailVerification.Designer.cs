@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using exam_postly_api;
@@ -11,9 +12,11 @@ using exam_postly_api;
 namespace exam_postly_api.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250608195251_UserEmailVerification")]
+    partial class UserEmailVerification
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -240,32 +243,6 @@ namespace exam_postly_api.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("exam_postly_api.Models.VerifyToken", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("ExpiresAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Token")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("VerifyTokens");
-                });
-
             modelBuilder.Entity("exam_postly_api.Models.Favorite", b =>
                 {
                     b.HasOne("exam_postly_api.Models.Offer", "Offer")
@@ -329,17 +306,6 @@ namespace exam_postly_api.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("exam_postly_api.Models.VerifyToken", b =>
-                {
-                    b.HasOne("exam_postly_api.Models.User", "User")
-                        .WithOne("VerifyToken")
-                        .HasForeignKey("exam_postly_api.Models.VerifyToken", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("exam_postly_api.Models.Offer", b =>
                 {
                     b.Navigation("Favorites");
@@ -356,8 +322,6 @@ namespace exam_postly_api.Migrations
                     b.Navigation("RefreshTokens");
 
                     b.Navigation("RestoreTokens");
-
-                    b.Navigation("VerifyToken");
                 });
 #pragma warning restore 612, 618
         }
