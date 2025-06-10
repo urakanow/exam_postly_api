@@ -5,8 +5,8 @@ namespace exam_postly_api.Services;
 public class VerifyTokenCleanupService : BackgroundService
 {
     private readonly IServiceScopeFactory _factory;
-    // private readonly TimeSpan _executionInterval = TimeSpan.FromHours(1);
-    private readonly TimeSpan _executionInterval = TimeSpan.FromMinutes(5);//small value for a test
+    private readonly TimeSpan _executionInterval = TimeSpan.FromHours(1);
+    // private readonly TimeSpan _executionInterval = TimeSpan.FromMinutes(5);//small value for a test
 
     public VerifyTokenCleanupService(IServiceScopeFactory factory)
     {
