@@ -115,11 +115,17 @@ namespace exam_postly_api.Controllers
             if (userId == null)
                 return Unauthorized();
 
-            var user = await _dbContext.Users.Include(u => u.Offers).FirstOrDefaultAsync(u => u.Id == userId);
+            var user = await _dbContext.Users
+                .Include(u => u.Offers)
+                .ThenInclude(o => o.Images)
+                .FirstOrDefaultAsync(u => u.Id == userId);
             if (user == null)
                 return NotFound("user not found");
 
-            return Ok(user.Offers);
+            var offerPreviews = user.Offers.Select(r => new OfferPreviewDTO(r)).ToList();
+            
+            // return Ok(user.Offers);
+            return Ok(offerPreviews);
         }
 
         [Authorize]
@@ -158,9 +164,32 @@ namespace exam_postly_api.Controllers
         }
 
         [Authorize]
+        [Route("my-offer/{id}")]
+        [HttpGet(Name = "GetMyOffer")]
+        public async Task<ActionResult> GetMyOffer(int id)
+        {
+            var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            
+            var offer = await _dbContext.Offers
+                .Include(o => o.Images)
+                .FirstOrDefaultAsync(o => o.Id == id);
+            if (offer == null) 
+            {
+                return NotFound("offer not found");
+            }
+
+            if (offer.UserId != userId)
+            {
+                return Forbid();
+            }
+            
+            return Ok(offer);
+        }
+
+        [Authorize]
         [Route("edit-offer")]
         [HttpPut(Name = "EditOffer")]
-        public async Task<ActionResult> EditOffer([FromBody] EditOfferDTO dto)
+        public async Task<ActionResult> EditOffer([FromForm] EditOfferDTO dto)
         {
             var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             if (userId == 0)
@@ -180,6 +209,13 @@ namespace exam_postly_api.Controllers
             // Alternatively, update properties manually:
             offer.Title = dto.Title;
             offer.Price = Convert.ToDouble(dto.Price);
+            offer.Description = dto.Description;
+            offer.Category = dto.Category;
+            offer.Email = dto.Email;
+            offer.PhoneNumber = dto.PhoneNumber;
+            offer.Address = dto.Address;
+            offer.Contacter = dto.Contacter;
+            // offer.Images = dto.Images;
 
             try
             {
