@@ -238,6 +238,23 @@ namespace exam_postly_api.Controllers
             {
                 query = query.Where(o => o.Category == filters.CategoryId.Value);
             }
+            if (filters.State.HasValue)
+            {
+                query = query.Where(o => o.State == filters.State.Value);
+            }
+            if (filters.minPrice.HasValue)
+            {
+                query = query.Where(o => o.Price >= filters.minPrice.Value);
+            }
+            if (filters.maxPrice.HasValue)
+            {
+                query = query.Where(o => o.Price <= filters.maxPrice.Value);
+            }
+
+            if (!string.IsNullOrEmpty(filters.title))
+            {
+                query = query.Where(o => o.Title.ToLower().Contains(filters.title.ToLower()));
+            }
     
             var results = await query
                 .Skip((filters.Page - 1) * filters.PageSize)
