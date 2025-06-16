@@ -11,7 +11,7 @@
     <list default="true" id="25e9feee-7318-41dd-8465-36f7c1b59326" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.exam_postly_api/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.exam_postly_api/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exam_postly_api/Controllers/OfferController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Controllers/OfferController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_postly_api/DTOs/EditOfferDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/DTOs/EditOfferDTO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_postly_api/DTOs/OfferFilterDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/DTOs/OfferFilterDTO.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,11 +82,11 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    ".NET Launch Settings Profile.exam_postly_api: https.executor": "Run",
+    ".NET Launch Settings Profile.exam_postly_api: https.executor": "Debug",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "feature__my__offers",
+    "git-widget-placeholder": "feature__filtering",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -180,6 +180,9 @@
       <workItem from="1749576050027" duration="6214000" />
       <workItem from="1749658182209" duration="7202000" />
       <workItem from="1749743610112" duration="6253000" />
+      <workItem from="1749978210617" duration="655000" />
+      <workItem from="1750014066280" duration="2406000" />
+      <workItem from="1750099621327" duration="3583000" />
     </task>
     <task id="LOCAL-00001" summary="added offer editing">
       <option name="closed" value="true" />
@@ -328,16 +331,29 @@
         </breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/exam_postly_api/Controllers/OfferController.cs</url>
-          <line>209</line>
-          <properties documentPath="$PROJECT_DIR$/exam_postly_api/Controllers/OfferController.cs" containingFunctionPresentation="Method 'EditOffer'">
+          <line>248</line>
+          <properties documentPath="$PROJECT_DIR$/exam_postly_api/Controllers/OfferController.cs" containingFunctionPresentation="Method 'GetFilteredOffers'">
             <startOffsets>
-              <option value="7069" />
+              <option value="8542" />
             </startOffsets>
             <endOffsets>
-              <option value="7093" />
+              <option value="8572" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="4" />
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/exam_postly_api/Controllers/OfferController.cs</url>
+          <line>244</line>
+          <properties documentPath="$PROJECT_DIR$/exam_postly_api/Controllers/OfferController.cs" containingFunctionPresentation="Method 'GetFilteredOffers'">
+            <startOffsets>
+              <option value="8394" />
+            </startOffsets>
+            <endOffsets>
+              <option value="8424" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
