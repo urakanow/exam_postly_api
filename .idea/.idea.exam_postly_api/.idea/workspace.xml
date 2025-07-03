@@ -10,8 +10,6 @@
   <component name="ChangeListManager">
     <list default="true" id="25e9feee-7318-41dd-8465-36f7c1b59326" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.exam_postly_api/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.exam_postly_api/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_postly_api/Controllers/OfferController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Controllers/OfferController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_postly_api/DTOs/OfferFilterDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/DTOs/OfferFilterDTO.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +35,7 @@
     </favorite-branches>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dev" />
+        <entry key="$PROJECT_DIR$" value="feature_filtering" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -80,22 +78,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Launch Settings Profile.exam_postly_api: https.executor": "Debug",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "feature__filtering",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.keymap",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Launch Settings Profile.exam_postly_api: https.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Launch Settings Profile.exam_postly_api: https">
     <configuration name="exam_postly_api: http" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/exam_postly_api/exam_postly_api.csproj" />
@@ -183,6 +181,23 @@
       <workItem from="1749978210617" duration="655000" />
       <workItem from="1750014066280" duration="2406000" />
       <workItem from="1750099621327" duration="3583000" />
+      <workItem from="1750192359856" duration="601000" />
+      <workItem from="1750323097473" duration="600000" />
+      <workItem from="1750404379246" duration="1501000" />
+      <workItem from="1750447488150" duration="1846000" />
+      <workItem from="1750489421665" duration="3250000" />
+      <workItem from="1750529857112" duration="1059000" />
+      <workItem from="1750574104588" duration="2575000" />
+      <workItem from="1750791230626" duration="2257000" />
+      <workItem from="1751094306218" duration="3100000" />
+      <workItem from="1751140928233" duration="679000" />
+      <workItem from="1751179121480" duration="3281000" />
+      <workItem from="1751271775432" duration="1213000" />
+      <workItem from="1751294513620" duration="769000" />
+      <workItem from="1751356379159" duration="1516000" />
+      <workItem from="1751458301136" duration="846000" />
+      <workItem from="1751478540973" duration="2895000" />
+      <workItem from="1751529221255" duration="1253000" />
     </task>
     <task id="LOCAL-00001" summary="added offer editing">
       <option name="closed" value="true" />
@@ -312,7 +327,8 @@
     <MESSAGE value="changed jwt values" />
     <MESSAGE value="complete" />
     <MESSAGE value="workspace.xml" />
-    <option name="LAST_COMMIT_MESSAGE" value="workspace.xml" />
+    <MESSAGE value="filtering complete" />
+    <option name="LAST_COMMIT_MESSAGE" value="filtering complete" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
