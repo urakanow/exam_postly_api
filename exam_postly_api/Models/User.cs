@@ -10,15 +10,10 @@
         required
             public string Email { get; set; } = "";
 
-        required
-            public string PhoneNumber { get; set; } = "";
-        
-        required
-            public string PasswordHash { get; set; }
-
-        required
-            public string Salt { get; set; }
-
+        public string? PasswordHash { get; set; }
+        public string? Salt { get; set; }
+        public string PhoneNumber { get; set; } = "";
+        public string GoogleId { get; set; } = "";
         public string FirstName { get; set; } = "";
         public string LastName { get; set; } = "";
         public string City { get; set; } = "";
