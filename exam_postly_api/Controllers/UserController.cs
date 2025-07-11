@@ -9,6 +9,8 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using exam_postly_api.Interfaces;
+using exam_postly_api.Services;
+using Google.Apis.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.WebUtilities;
@@ -20,14 +22,16 @@ namespace exam_postly_api.Controllers
     public class UserController : ControllerBase
     {
         private readonly ApplicationDBContext _dbContext;
+        private readonly UserService _userService;
         private readonly IConfiguration _config;
         private readonly IEmailSender _emailSender;
 
-        public UserController(ApplicationDBContext dbContext, IConfiguration config, IEmailSender emailSender)
+        public UserController(ApplicationDBContext dbContext, UserService userService, IConfiguration config, IEmailSender emailSender)
         {
             _dbContext = dbContext;
+            _userService = userService;
             _config = config;
-            this._emailSender = emailSender;
+            _emailSender = emailSender;
         }
 
         [Route("users")]
@@ -61,10 +65,9 @@ namespace exam_postly_api.Controllers
                     PasswordHash = hashedPassword,
                     Salt = salt
                 };
-
-                await _dbContext.Users.AddAsync(user);
-                await _dbContext.SaveChangesAsync();
-
+                
+                await _userService.CreateUserAsync(user);
+                
                 var tokenBytes = RandomNumberGenerator.GetBytes(32);
                 var encodedTokenString = WebEncoders.Base64UrlEncode(tokenBytes); // Direct to URL-safe
                 var token = new VerifyToken()
@@ -156,7 +159,7 @@ namespace exam_postly_api.Controllers
                     return Unauthorized(new { message = "Wrong email or password" });
                 }
 
-                var accessToken = GenerateAccessToken(user.Email, user.Id);
+                var accessToken = GenerateAccessToken(user.Email, user.Id, _config);
 
                 var refreshToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
                 var hashedRefreshToken = Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(refreshToken)));
@@ -188,10 +191,10 @@ namespace exam_postly_api.Controllers
             }
         }
 
-        private string GenerateAccessToken(string email, int id)
+        public static string GenerateAccessToken(string email, int id, IConfiguration config)
         {
             
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new[]
@@ -202,8 +205,8 @@ namespace exam_postly_api.Controllers
             };
 
             var token = new JwtSecurityToken(
-                issuer: _config["Jwt:Issuer"],
-                audience: _config["Jwt:Audience"],
+                issuer: config["Jwt:Issuer"],
+                audience: config["Jwt:Audience"],
                 claims: claims,
                 expires: DateTime.UtcNow.AddMinutes(15),
                 //expires: DateTime.UtcNow.AddSeconds(30), // small value for a test
@@ -231,7 +234,7 @@ namespace exam_postly_api.Controllers
             if (storedToken.ExpiresAt < DateTime.UtcNow) return Unauthorized();
 
             var user = storedToken.User;
-            var newAccessToken = GenerateAccessToken(user.Email, user.Id);
+            var newAccessToken = GenerateAccessToken(user.Email, user.Id, _config);
 
             storedToken.IsRevoked = true;
             await _dbContext.SaveChangesAsync();

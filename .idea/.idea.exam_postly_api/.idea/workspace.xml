@@ -9,7 +9,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="25e9feee-7318-41dd-8465-36f7c1b59326" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/exam_postly_api/Controllers/GoogleAuthController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exam_postly_api/Services/UserService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.exam_postly_api/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.exam_postly_api/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_postly_api/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Controllers/UserController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_postly_api/Controllers/WeatherForecastController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_postly_api/Migrations/ApplicationDBContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Migrations/ApplicationDBContextModelSnapshot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_postly_api/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Models/User.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_postly_api/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_postly_api/WeatherForecast.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_postly_api/exam_postly_api.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/exam_postly_api.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +44,7 @@
     </favorite-branches>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feature_filtering" />
+        <entry key="$PROJECT_DIR$" value="dev" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -60,6 +69,7 @@
     <setting file="file://$PROJECT_DIR$/exam_postly_api/DTOs/UserCreateDTO.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Migrations/20250419132650_DatabaseCreate.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Migrations/ApplicationDBContextModelSnapshot.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/exam_postly_api/Models/Image.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Models/Offer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Models/RefreshToken.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Models/User.cs" root0="FORCE_HIGHLIGHTING" />
@@ -84,13 +94,13 @@
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature__google__auth&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.maddyhome.idea.vim.ui.VimEmulationConfigurable&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -198,6 +208,17 @@
       <workItem from="1751458301136" duration="846000" />
       <workItem from="1751478540973" duration="2895000" />
       <workItem from="1751529221255" duration="1253000" />
+      <workItem from="1751702001349" duration="2149000" />
+      <workItem from="1751789099939" duration="622000" />
+      <workItem from="1751885769939" duration="3388000" />
+      <workItem from="1751904100290" duration="2014000" />
+      <workItem from="1751959777853" duration="844000" />
+      <workItem from="1752044458235" duration="3010000" />
+      <workItem from="1752083029500" duration="2857000" />
+      <workItem from="1752087346479" duration="392000" />
+      <workItem from="1752128406063" duration="8260000" />
+      <workItem from="1752215206989" duration="1166000" />
+      <workItem from="1752218943073" duration="1551000" />
     </task>
     <task id="LOCAL-00001" summary="added offer editing">
       <option name="closed" value="true" />
@@ -370,6 +391,19 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/exam_postly_api/Controllers/UserController.cs</url>
+          <line>85</line>
+          <properties documentPath="$PROJECT_DIR$/exam_postly_api/Controllers/UserController.cs" containingFunctionPresentation="Method 'CreateUser'">
+            <startOffsets>
+              <option value="3220" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3363" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
