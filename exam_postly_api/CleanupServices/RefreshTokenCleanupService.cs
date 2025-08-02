@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace exam_postly_api.Services
+namespace exam_postly_api.CleanupServices
 {
     public class RefreshTokenCleanupService : BackgroundService
     {

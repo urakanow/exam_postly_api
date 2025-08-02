@@ -26,6 +26,9 @@
         public ICollection<Offer> Offers { get; set; } = new List<Offer>();
         public ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
         public ICollection<RestoreToken> RestoreTokens { get; set; } = new List<RestoreToken>();
+        // public ICollection<Message> Messages { get; set; } = new List<Message>();
+        public virtual ICollection<Chat> BuyerChats { get; set; } = new List<Chat>();
+        // public virtual ICollection<Chat> SellerChats { get; set; } = new List<Chat>();
         public VerifyToken? VerifyToken { get; set; } =  null;
     }
 }

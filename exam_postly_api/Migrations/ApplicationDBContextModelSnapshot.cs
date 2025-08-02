@@ -22,6 +22,27 @@ namespace exam_postly_api.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("exam_postly_api.Models.Chat", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("BuyerId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("OfferId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BuyerId");
+
+                    b.HasIndex("OfferId");
+
+                    b.ToTable("Chats");
+                });
+
             modelBuilder.Entity("exam_postly_api.Models.Favorite", b =>
                 {
                     b.Property<int>("Id")
@@ -65,6 +86,37 @@ namespace exam_postly_api.Migrations
                     b.HasIndex("OfferId");
 
                     b.ToTable("Images");
+                });
+
+            modelBuilder.Entity("exam_postly_api.Models.Message", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ChatId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("SenderId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("SendingTimeUTC")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChatId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("exam_postly_api.Models.Offer", b =>
@@ -268,6 +320,25 @@ namespace exam_postly_api.Migrations
                     b.ToTable("VerifyTokens");
                 });
 
+            modelBuilder.Entity("exam_postly_api.Models.Chat", b =>
+                {
+                    b.HasOne("exam_postly_api.Models.User", "Buyer")
+                        .WithMany("BuyerChats")
+                        .HasForeignKey("BuyerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("exam_postly_api.Models.Offer", "Offer")
+                        .WithMany()
+                        .HasForeignKey("OfferId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Buyer");
+
+                    b.Navigation("Offer");
+                });
+
             modelBuilder.Entity("exam_postly_api.Models.Favorite", b =>
                 {
                     b.HasOne("exam_postly_api.Models.Offer", "Offer")
@@ -296,6 +367,25 @@ namespace exam_postly_api.Migrations
                         .IsRequired();
 
                     b.Navigation("Offer");
+                });
+
+            modelBuilder.Entity("exam_postly_api.Models.Message", b =>
+                {
+                    b.HasOne("exam_postly_api.Models.Chat", "Chat")
+                        .WithMany("Messages")
+                        .HasForeignKey("ChatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("exam_postly_api.Models.User", "Sender")
+                        .WithMany()
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Chat");
+
+                    b.Navigation("Sender");
                 });
 
             modelBuilder.Entity("exam_postly_api.Models.Offer", b =>
@@ -342,6 +432,11 @@ namespace exam_postly_api.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("exam_postly_api.Models.Chat", b =>
+                {
+                    b.Navigation("Messages");
+                });
+
             modelBuilder.Entity("exam_postly_api.Models.Offer", b =>
                 {
                     b.Navigation("Favorites");
@@ -351,6 +446,8 @@ namespace exam_postly_api.Migrations
 
             modelBuilder.Entity("exam_postly_api.Models.User", b =>
                 {
+                    b.Navigation("BuyerChats");
+
                     b.Navigation("Favorites");
 
                     b.Navigation("Offers");

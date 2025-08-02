@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json.Serialization;
+using exam_postly_api.CleanupServices;
 using exam_postly_api.Interfaces;
 using exam_postly_api.Services;
 using exam_postly_api.Utilities;
@@ -44,6 +44,7 @@ namespace exam_postly_api
             builder.Services.AddTransient<IEmailSender, EmailSender>();
 
             builder.Services.AddScoped<UserService>();
+            builder.Services.AddScoped<ChatService>();
 
             // Add services to the container.
 
@@ -51,7 +52,9 @@ namespace exam_postly_api
                 .AddJsonOptions(options => 
                 {
                     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-                });;
+                });
+
+            builder.Services.AddSignalR();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
@@ -106,6 +109,8 @@ namespace exam_postly_api
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseWebSockets();
+            app.MapHub<ChatHub>("/api/chatHub"); 
 
             app.MapControllers();
 
