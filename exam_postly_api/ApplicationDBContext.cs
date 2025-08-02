@@ -14,6 +14,8 @@ namespace exam_postly_api
         public DbSet<Favorite> Favorites { get; set; }
         public DbSet<RestoreToken> RestoreTokens { get; set; }
         public DbSet<VerifyToken> VerifyTokens { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<Chat> Chats { get; set; }
 
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options) { }
 
@@ -68,6 +70,30 @@ namespace exam_postly_api
                 // .IsRequired()
                 .HasForeignKey<VerifyToken>(verifyToken => verifyToken.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
+            
+            modelBuilder.Entity<Message>().HasKey(message => message.Id);
+            modelBuilder.Entity<Message>()
+                .HasOne(message => message.Chat)
+                .WithMany(chat => chat.Messages)
+                .HasForeignKey(message => message.ChatId)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Message>()
+                .HasOne(message => message.Sender)
+                .WithMany()
+                .HasForeignKey(message => message.SenderId)
+                .OnDelete(DeleteBehavior.Cascade);
+            
+            modelBuilder.Entity<Chat>().HasKey(chat => chat.Id);
+            modelBuilder.Entity<Chat>()
+                .HasOne(chat => chat.Buyer)
+                .WithMany(user => user.BuyerChats)
+                .HasForeignKey(chat => chat.BuyerId)
+                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Chat>()
+                .HasOne(chat => chat.Offer)
+                .WithMany()
+                .HasForeignKey(chat => chat.OfferId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -9,15 +9,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="25e9feee-7318-41dd-8465-36f7c1b59326" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/exam_postly_api/Controllers/GoogleAuthController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exam_postly_api/Services/UserService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exam_postly_api/Controllers/ChatController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exam_postly_api/DTOs/ChatPreviewDTO.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exam_postly_api/DTOs/NewChatDTO.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exam_postly_api/DTOs/NewMessageDTO.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exam_postly_api/Models/Chat.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exam_postly_api/Models/Message.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exam_postly_api/Services/ChatHub.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exam_postly_api/Services/ChatService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.exam_postly_api/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.exam_postly_api/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_postly_api/ApplicationDBContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/ApplicationDBContext.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exam_postly_api/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Controllers/UserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_postly_api/Controllers/WeatherForecastController.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/exam_postly_api/Migrations/ApplicationDBContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Migrations/ApplicationDBContextModelSnapshot.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exam_postly_api/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Models/User.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exam_postly_api/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_postly_api/WeatherForecast.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_postly_api/Services/RefreshTokenCleanupService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/CleanupServices/RefreshTokenCleanupService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_postly_api/Services/RestoreTokenCleanupService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/CleanupServices/RestoreTokenCleanupService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_postly_api/Services/VerifyTokenCleanupService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/CleanupServices/VerifyTokenCleanupService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exam_postly_api/exam_postly_api.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/exam_postly_api.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -62,6 +70,7 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f96288b73c32470fb9940095d0d342eb81000/84/dfa91e36/Hub.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/ApplicationDBContext.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Controllers/OfferController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Controllers/UserController.cs" root0="FORCE_HIGHLIGHTING" />
@@ -69,6 +78,7 @@
     <setting file="file://$PROJECT_DIR$/exam_postly_api/DTOs/UserCreateDTO.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Migrations/20250419132650_DatabaseCreate.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Migrations/ApplicationDBContextModelSnapshot.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/exam_postly_api/Models/Chat.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Models/Image.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Models/Offer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Models/RefreshToken.cs" root0="FORCE_HIGHLIGHTING" />
@@ -94,7 +104,7 @@
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature__google__auth&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature__chat&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -219,6 +229,28 @@
       <workItem from="1752128406063" duration="8260000" />
       <workItem from="1752215206989" duration="1166000" />
       <workItem from="1752218943073" duration="1551000" />
+      <workItem from="1752304405822" duration="3968000" />
+      <workItem from="1752395290464" duration="3182000" />
+      <workItem from="1752478062177" duration="605000" />
+      <workItem from="1752563264785" duration="381000" />
+      <workItem from="1752568842826" duration="1257000" />
+      <workItem from="1752659832647" duration="601000" />
+      <workItem from="1752669910413" duration="812000" />
+      <workItem from="1752829054544" duration="915000" />
+      <workItem from="1752918422557" duration="1817000" />
+      <workItem from="1752996251348" duration="691000" />
+      <workItem from="1753084470262" duration="1364000" />
+      <workItem from="1753171109533" duration="1550000" />
+      <workItem from="1753253395592" duration="6076000" />
+      <workItem from="1753360191425" duration="10706000" />
+      <workItem from="1753430972542" duration="7709000" />
+      <workItem from="1753516796992" duration="8760000" />
+      <workItem from="1753601644797" duration="5656000" />
+      <workItem from="1753691956372" duration="8117000" />
+      <workItem from="1753771468002" duration="1256000" />
+      <workItem from="1753777990421" duration="8345000" />
+      <workItem from="1753856487074" duration="5266000" />
+      <workItem from="1754122961343" duration="869000" />
     </task>
     <task id="LOCAL-00001" summary="added offer editing">
       <option name="closed" value="true" />
@@ -316,7 +348,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749561662266</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="chat feature completed">
+      <option name="closed" value="true" />
+      <created>1754123830789</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1754123830790</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -349,7 +389,8 @@
     <MESSAGE value="complete" />
     <MESSAGE value="workspace.xml" />
     <MESSAGE value="filtering complete" />
-    <option name="LAST_COMMIT_MESSAGE" value="filtering complete" />
+    <MESSAGE value="chat feature completed" />
+    <option name="LAST_COMMIT_MESSAGE" value="chat feature completed" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -393,17 +434,56 @@
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/exam_postly_api/Controllers/UserController.cs</url>
-          <line>85</line>
-          <properties documentPath="$PROJECT_DIR$/exam_postly_api/Controllers/UserController.cs" containingFunctionPresentation="Method 'CreateUser'">
+          <url>file://$PROJECT_DIR$/exam_postly_api/Controllers/ChatController.cs</url>
+          <line>116</line>
+          <properties documentPath="$PROJECT_DIR$/exam_postly_api/Controllers/ChatController.cs" containingFunctionPresentation="Method 'ReadMessage'">
             <startOffsets>
-              <option value="3220" />
+              <option value="3855" />
             </startOffsets>
             <endOffsets>
-              <option value="3363" />
+              <option value="3921" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="8" />
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/exam_postly_api/Controllers/ChatController.cs</url>
+          <line>140</line>
+          <properties documentPath="$PROJECT_DIR$/exam_postly_api/Controllers/ChatController.cs" containingFunctionPresentation="Method 'ReadChat'">
+            <startOffsets>
+              <option value="4539" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4618" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/exam_postly_api/Controllers/ChatController.cs</url>
+          <line>62</line>
+          <properties documentPath="$PROJECT_DIR$/exam_postly_api/Controllers/ChatController.cs" containingFunctionPresentation="Method 'GetChats'">
+            <startOffsets>
+              <option value="2069" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2092" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/exam_postly_api/Services/ChatService.cs</url>
+          <line>138</line>
+          <properties documentPath="$PROJECT_DIR$/exam_postly_api/Services/ChatService.cs" containingFunctionPresentation="Method 'GetLastMessage'">
+            <startOffsets>
+              <option value="4212" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4231" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="26" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

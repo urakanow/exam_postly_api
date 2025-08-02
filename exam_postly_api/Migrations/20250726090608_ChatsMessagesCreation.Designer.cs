@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using exam_postly_api;
@@ -11,9 +12,11 @@ using exam_postly_api;
 namespace exam_postly_api.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250726090608_ChatsMessagesCreation")]
+    partial class ChatsMessagesCreation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,9 +99,6 @@ namespace exam_postly_api.Migrations
 
                     b.Property<Guid>("ChatId")
                         .HasColumnType("uuid");
-
-                    b.Property<bool>("IsRead")
-                        .HasColumnType("boolean");
 
                     b.Property<int>("SenderId")
                         .HasColumnType("integer");

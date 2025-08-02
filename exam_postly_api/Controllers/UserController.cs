@@ -209,7 +209,7 @@ namespace exam_postly_api.Controllers
                 audience: config["Jwt:Audience"],
                 claims: claims,
                 expires: DateTime.UtcNow.AddMinutes(15),
-                //expires: DateTime.UtcNow.AddSeconds(30), // small value for a test
+                // expires: DateTime.UtcNow.AddSeconds(30), // small value for a test
 
                 signingCredentials: credentials
             );
