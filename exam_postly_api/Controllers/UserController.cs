@@ -34,6 +34,20 @@ namespace exam_postly_api.Controllers
             _emailSender = emailSender;
         }
 
+        [Authorize]
+        [Route("user")]
+        [HttpGet(Name = "GetUser")]
+        public async Task<ActionResult> GetUser()
+        {
+            var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            
+            var user = await _userService.GetUserByIdAsync(userId);
+            if(user == null)
+                return NotFound();
+            
+            return Ok(user);
+        }
+
         [Route("users")]
         [HttpGet(Name = "GetUsers")]
         public async Task<ActionResult> GetUsers()

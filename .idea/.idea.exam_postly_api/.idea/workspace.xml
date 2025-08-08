@@ -9,24 +9,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="25e9feee-7318-41dd-8465-36f7c1b59326" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/exam_postly_api/Controllers/ChatController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exam_postly_api/DTOs/ChatPreviewDTO.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exam_postly_api/DTOs/NewChatDTO.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exam_postly_api/DTOs/NewMessageDTO.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exam_postly_api/Models/Chat.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exam_postly_api/Models/Message.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exam_postly_api/Services/ChatHub.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exam_postly_api/Services/ChatService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.exam_postly_api/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.exam_postly_api/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_postly_api/ApplicationDBContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/ApplicationDBContext.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exam_postly_api/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Controllers/UserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_postly_api/Migrations/ApplicationDBContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Migrations/ApplicationDBContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_postly_api/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Models/User.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_postly_api/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_postly_api/Services/RefreshTokenCleanupService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/CleanupServices/RefreshTokenCleanupService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_postly_api/Services/RestoreTokenCleanupService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/CleanupServices/RestoreTokenCleanupService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_postly_api/Services/VerifyTokenCleanupService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/CleanupServices/VerifyTokenCleanupService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_postly_api/exam_postly_api.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/exam_postly_api.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_postly_api/Services/UserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Services/UserService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,6 +57,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f96288b73c32470fb9940095d0d342eb81000/84/dfa91e36/Hub.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/ApplicationDBContext.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/exam_postly_api/Controllers/FavoriteController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Controllers/OfferController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Controllers/UserController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/DTOs/LoginDTO.cs" root0="FORCE_HIGHLIGHTING" />
@@ -104,13 +90,13 @@
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature__chat&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature__nova__post&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.maddyhome.idea.vim.ui.VimEmulationConfigurable&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;CodeInspectionSettingsId&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -251,6 +237,12 @@
       <workItem from="1753777990421" duration="8345000" />
       <workItem from="1753856487074" duration="5266000" />
       <workItem from="1754122961343" duration="869000" />
+      <workItem from="1754226258450" duration="2509000" />
+      <workItem from="1754303880155" duration="2287000" />
+      <workItem from="1754384408614" duration="987000" />
+      <workItem from="1754394839613" duration="598000" />
+      <workItem from="1754418282304" duration="792000" />
+      <workItem from="1754644700458" duration="786000" />
     </task>
     <task id="LOCAL-00001" summary="added offer editing">
       <option name="closed" value="true" />
