@@ -31,6 +31,7 @@
         // public ICollection<Message> Messages { get; set; } = new List<Message>();
         public virtual ICollection<Chat> BuyerChats { get; set; } = new List<Chat>();
         // public virtual ICollection<Chat> SellerChats { get; set; } = new List<Chat>();
+        public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
         public VerifyToken? VerifyToken { get; set; } =  null;
     }
 }

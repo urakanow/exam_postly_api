@@ -16,6 +16,7 @@ namespace exam_postly_api
         public DbSet<VerifyToken> VerifyTokens { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Chat> Chats { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options) { }
 
@@ -93,6 +94,18 @@ namespace exam_postly_api
                 .HasOne(chat => chat.Offer)
                 .WithMany()
                 .HasForeignKey(chat => chat.OfferId)
+                .OnDelete(DeleteBehavior.Restrict);
+            
+            modelBuilder.Entity<Order>().HasKey(order => order.Id);
+            modelBuilder.Entity<Order>()
+                .HasOne(order => order.Buyer)
+                .WithMany(user => user.Orders)
+                .HasForeignKey(order => order.BuyerId)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Order>()
+                .HasOne(order => order.Offer)
+                .WithMany()
+                .HasForeignKey(order => order.OfferId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }
