@@ -65,7 +65,7 @@ public class GoogleAuthController : ControllerBase
                 //     message = "Login successful" 
                 // });
                 
-                var accessToken = UserController.GenerateAccessToken(existingUser.Email, existingUser.Id, _config);
+                var accessToken = UserController.GenerateAccessToken(existingUser.Email, existingUser.Id, _config, existingUser.Role);
 
                 var refreshToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
                 var hashedRefreshToken = Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(refreshToken)));
@@ -111,7 +111,7 @@ public class GoogleAuthController : ControllerBase
             //     user = newUser,
             //     message = "Account created successfully" 
             // });
-            var newAccessToken = UserController.GenerateAccessToken(newUser.Email, newUser.Id, _config);
+            var newAccessToken = UserController.GenerateAccessToken(newUser.Email, newUser.Id, _config, newUser.Role);
 
             var newRefreshToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
             var newHashedRefreshToken = Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(newRefreshToken)));

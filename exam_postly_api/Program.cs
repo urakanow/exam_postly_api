@@ -34,6 +34,10 @@ namespace exam_postly_api
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
                 };
             });
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy(IdentityData.AdminPolicyName, policy => policy.RequireRole("admin"));
+            });
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseNpgsql(connectionString));

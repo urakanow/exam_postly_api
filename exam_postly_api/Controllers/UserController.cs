@@ -173,7 +173,7 @@ namespace exam_postly_api.Controllers
                     return Unauthorized(new { message = "Wrong email or password" });
                 }
 
-                var accessToken = GenerateAccessToken(user.Email, user.Id, _config);
+                var accessToken = GenerateAccessToken(user.Email, user.Id, _config, user.Role);
 
                 var refreshToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
                 var hashedRefreshToken = Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(refreshToken)));
@@ -205,7 +205,7 @@ namespace exam_postly_api.Controllers
             }
         }
 
-        public static string GenerateAccessToken(string email, int id, IConfiguration config)
+        public static string GenerateAccessToken(string email, int id, IConfiguration config, string role)
         {
             
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]));
@@ -215,7 +215,8 @@ namespace exam_postly_api.Controllers
             {
                 new Claim( JwtRegisteredClaimNames.Sub, id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, email),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(IdentityData.AdminUserClaimName, role)
             };
 
             var token = new JwtSecurityToken(
@@ -248,7 +249,7 @@ namespace exam_postly_api.Controllers
             if (storedToken.ExpiresAt < DateTime.UtcNow) return Unauthorized();
 
             var user = storedToken.User;
-            var newAccessToken = GenerateAccessToken(user.Email, user.Id, _config);
+            var newAccessToken = GenerateAccessToken(user.Email, user.Id, _config, user.Role);
 
             storedToken.IsRevoked = true;
             await _dbContext.SaveChangesAsync();
