@@ -21,8 +21,8 @@ public class OrderController : ControllerBase
         _userService = userService;
     }
 
-    [HttpPost]
     [Route("create")]
+    [HttpPost]
     public async Task<ActionResult> CreateOrder([FromBody] OrderCreateDTO dto)
     {
         var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
@@ -44,5 +44,20 @@ public class OrderController : ControllerBase
         await _dbContext.SaveChangesAsync();
         
         return Ok(newOrder);
+    }
+
+    [Route("status/{id}")]
+    [HttpGet]
+    public async Task<ActionResult> GetStatus(Guid id)
+    {
+        var order = await _dbContext.Orders.FindAsync(id);
+        if (order == null)
+            return NotFound();
+        
+        var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+        if(order.BuyerId != userId)
+            return Unauthorized();
+        
+        return Ok(order.Status);
     }
 }
