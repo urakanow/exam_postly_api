@@ -9,8 +9,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="25e9feee-7318-41dd-8465-36f7c1b59326" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/exam_postly_api/DTOs/OrderPreviewDTO.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.exam_postly_api/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.exam_postly_api/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_postly_api/Controllers/OrderController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Controllers/OrderController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_postly_api/Controllers/AdminController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Controllers/AdminController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,6 +63,7 @@
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Controllers/UserController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/DTOs/LoginDTO.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/DTOs/OrderCreateDTO.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/exam_postly_api/DTOs/OrderPreviewDTO.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/DTOs/UserCreateDTO.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Enums/OrderStatus.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Migrations/20250419132650_DatabaseCreate.cs" root0="FORCE_HIGHLIGHTING" />
@@ -254,7 +256,8 @@
       <workItem from="1755072851889" duration="6798000" />
       <workItem from="1755345779514" duration="2951000" />
       <workItem from="1755429183625" duration="9788000" />
-      <workItem from="1755787362301" duration="1375000" />
+      <workItem from="1755787362301" duration="7441000" />
+      <workItem from="1755863818902" duration="1771000" />
     </task>
     <task id="LOCAL-00001" summary="added offer editing">
       <option name="closed" value="true" />
@@ -384,7 +387,15 @@
       <option name="project" value="LOCAL" />
       <updated>1755445646214</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="order status endpoint">
+      <option name="closed" value="true" />
+      <created>1755790352833</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1755790352833</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -421,7 +432,8 @@
     <MESSAGE value="completed" />
     <MESSAGE value="user and offer deletion on admin page" />
     <MESSAGE value="order model + creation in an api controller" />
-    <option name="LAST_COMMIT_MESSAGE" value="order model + creation in an api controller" />
+    <MESSAGE value="order status endpoint" />
+    <option name="LAST_COMMIT_MESSAGE" value="order status endpoint" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -1,4 +1,6 @@
 using exam_postly_api.DTOs;
+using exam_postly_api.Enums;
+using exam_postly_api.Interfaces;
 using exam_postly_api.Models;
 using exam_postly_api.Services;
 using exam_postly_api.Utilities;
@@ -15,11 +17,13 @@ public class AdminController : ControllerBase
 {
     private readonly UserService _userService;
     private readonly ApplicationDBContext _dbContext;
+    private readonly IEmailSender _emailSender;
 
-    public AdminController(UserService userService, ApplicationDBContext dbContext)
+    public AdminController(UserService userService, ApplicationDBContext dbContext, IEmailSender emailSender)
     {
         _userService = userService;
         _dbContext = dbContext;
+        _emailSender = emailSender;
     }
 
     [Route("users")]
@@ -43,6 +47,23 @@ public class AdminController : ControllerBase
         var offerDTOs = offers.Select(offer => new OfferPreviewDTO(offer)).ToList();
         
         return Ok(offerDTOs);
+    }
+    
+    [Route("orders")]
+    [HttpGet]
+    public async Task<ActionResult<List<OrderPreviewDTO>>> GetOrders()
+    {
+        var orders = _dbContext.Orders
+            .Include(o => o.Offer)
+            .ToList();
+        var orderDTOs = orders.Select(order => new OrderPreviewDTO
+        {
+            OfferTitle = order.Offer.Title,
+            OrderId = order.Id,
+            Status = order.Status
+        }).ToList();
+        
+        return Ok(orderDTOs);
     }
 
     [Route("delete-offer/{id}")]
@@ -71,5 +92,38 @@ public class AdminController : ControllerBase
         await _dbContext.SaveChangesAsync();
 
         return Ok("user deleted");
+    }
+    
+    [Route("delete-order/{id}")]
+    [HttpDelete]
+    public async Task<ActionResult> DeleteOrder(Guid id)
+    {
+        var order = await _dbContext.Orders.FindAsync(id);
+        if(order == null)
+            return NotFound();
+        
+        _dbContext.Orders.Remove(order);
+        await _dbContext.SaveChangesAsync();
+
+        return Ok("order deleted");
+    }
+
+    [Route("fake-pay/{orderId}")]
+    [HttpPut]
+    public async Task<ActionResult> FakePay(Guid orderId)
+    {
+        var order = await _dbContext.Orders
+            .Include(o => o.Buyer)
+            .FirstOrDefaultAsync(o => o.Id == orderId);
+        
+        if(order == null)
+            return NotFound("order not found" + orderId);
+
+        order.Status = OrderStatus.Paid;
+        await _dbContext.SaveChangesAsync();
+
+        await _emailSender.SendEmailAsync(order.Buyer.Email, "Your receipt", "fake pay was performed on your order");
+        
+        return Ok("order paid");
     }
 }
