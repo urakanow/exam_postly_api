@@ -37,4 +37,9 @@ public class UserService
         var  user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == userId);
         return user;
     }
+
+    public List<User> getUsers()
+    {
+        return _dbContext.Users.ToList();
+    }
 }

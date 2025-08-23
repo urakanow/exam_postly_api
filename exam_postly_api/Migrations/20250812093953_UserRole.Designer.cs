@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using exam_postly_api;
@@ -11,9 +12,11 @@ using exam_postly_api;
 namespace exam_postly_api.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250812093953_UserRole")]
+    partial class UserRole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -171,30 +174,6 @@ namespace exam_postly_api.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Offers");
-                });
-
-            modelBuilder.Entity("exam_postly_api.Models.Order", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("BuyerId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("OfferId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BuyerId");
-
-                    b.HasIndex("OfferId");
-
-                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("exam_postly_api.Models.RefreshToken", b =>
@@ -427,25 +406,6 @@ namespace exam_postly_api.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("exam_postly_api.Models.Order", b =>
-                {
-                    b.HasOne("exam_postly_api.Models.User", "Buyer")
-                        .WithMany("Orders")
-                        .HasForeignKey("BuyerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("exam_postly_api.Models.Offer", "Offer")
-                        .WithMany()
-                        .HasForeignKey("OfferId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Buyer");
-
-                    b.Navigation("Offer");
-                });
-
             modelBuilder.Entity("exam_postly_api.Models.RefreshToken", b =>
                 {
                     b.HasOne("exam_postly_api.Models.User", "User")
@@ -498,8 +458,6 @@ namespace exam_postly_api.Migrations
                     b.Navigation("Favorites");
 
                     b.Navigation("Offers");
-
-                    b.Navigation("Orders");
 
                     b.Navigation("RefreshTokens");
 

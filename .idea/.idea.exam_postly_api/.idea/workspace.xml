@@ -10,8 +10,8 @@
   <component name="ChangeListManager">
     <list default="true" id="25e9feee-7318-41dd-8465-36f7c1b59326" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.exam_postly_api/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.exam_postly_api/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_postly_api/Controllers/AdminController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Controllers/AdminController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exam_postly_api/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Controllers/UserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_postly_api/Services/UserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Services/UserService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,18 +55,24 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f96288b73c32470fb9940095d0d342eb81000/84/dfa91e36/Hub.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/ApplicationDBContext.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///home/ur1nda/RiderProjects/exam_postly_api/exam_postly_api/Controllers/AdminController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/exam_postly_api/Controllers/AdminController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Controllers/FavoriteController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Controllers/OfferController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/exam_postly_api/Controllers/OrderController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Controllers/UserController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/DTOs/LoginDTO.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/exam_postly_api/DTOs/OrderCreateDTO.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/exam_postly_api/DTOs/OrderPreviewDTO.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/DTOs/UserCreateDTO.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/exam_postly_api/Enums/OrderStatus.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Migrations/20250419132650_DatabaseCreate.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Migrations/ApplicationDBContextModelSnapshot.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Models/Chat.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Models/Image.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Models/Offer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/exam_postly_api/Models/Order.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Models/RefreshToken.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Models/User.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Models/VerifyToken.cs" root0="FORCE_HIGHLIGHTING" />
@@ -89,8 +95,9 @@
     &quot;.NET Launch Settings Profile.exam_postly_api: https.executor&quot;: &quot;Run&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature__nova__post&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature__admin__page&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -112,6 +119,7 @@
       <option name="SHOW_IIS_EXPRESS_OUTPUT" value="0" />
       <option name="SEND_DEBUG_REQUEST" value="1" />
       <option name="ADDITIONAL_IIS_EXPRESS_ARGUMENTS" value="" />
+      <option name="AUTO_ATTACH_CHILDREN" value="0" />
       <method v="2">
         <option name="Build" />
       </method>
@@ -127,6 +135,7 @@
       <option name="SHOW_IIS_EXPRESS_OUTPUT" value="0" />
       <option name="SEND_DEBUG_REQUEST" value="1" />
       <option name="ADDITIONAL_IIS_EXPRESS_ARGUMENTS" value="" />
+      <option name="AUTO_ATTACH_CHILDREN" value="0" />
       <method v="2">
         <option name="Build" />
       </method>
@@ -242,7 +251,15 @@
       <workItem from="1754384408614" duration="987000" />
       <workItem from="1754394839613" duration="598000" />
       <workItem from="1754418282304" duration="792000" />
-      <workItem from="1754644700458" duration="786000" />
+      <workItem from="1754644700458" duration="1615000" />
+      <workItem from="1754654580503" duration="718000" />
+      <workItem from="1754987987371" duration="5409000" />
+      <workItem from="1755072851889" duration="6798000" />
+      <workItem from="1755345779514" duration="2951000" />
+      <workItem from="1755429183625" duration="9788000" />
+      <workItem from="1755787362301" duration="7441000" />
+      <workItem from="1755863818902" duration="3983000" />
+      <workItem from="1755940340713" duration="808000" />
     </task>
     <task id="LOCAL-00001" summary="added offer editing">
       <option name="closed" value="true" />
@@ -348,7 +365,55 @@
       <option name="project" value="LOCAL" />
       <updated>1754123830790</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="completed">
+      <option name="closed" value="true" />
+      <created>1754654530956</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1754654530956</updated>
+    </task>
+    <task id="LOCAL-00015" summary="user and offer deletion on admin page">
+      <option name="closed" value="true" />
+      <created>1755430718784</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1755430718784</updated>
+    </task>
+    <task id="LOCAL-00016" summary="order model + creation in an api controller">
+      <option name="closed" value="true" />
+      <created>1755445646214</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1755445646214</updated>
+    </task>
+    <task id="LOCAL-00017" summary="order status endpoint">
+      <option name="closed" value="true" />
+      <created>1755790352833</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1755790352833</updated>
+    </task>
+    <task id="LOCAL-00018" summary="order endpoints and fake pay">
+      <option name="closed" value="true" />
+      <created>1755867834430</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1755867834430</updated>
+    </task>
+    <task id="LOCAL-00019" summary="orders table migration">
+      <option name="closed" value="true" />
+      <created>1755874849260</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1755874849260</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -382,7 +447,13 @@
     <MESSAGE value="workspace.xml" />
     <MESSAGE value="filtering complete" />
     <MESSAGE value="chat feature completed" />
-    <option name="LAST_COMMIT_MESSAGE" value="chat feature completed" />
+    <MESSAGE value="completed" />
+    <MESSAGE value="user and offer deletion on admin page" />
+    <MESSAGE value="order model + creation in an api controller" />
+    <MESSAGE value="order status endpoint" />
+    <MESSAGE value="order endpoints and fake pay" />
+    <MESSAGE value="orders table migration" />
+    <option name="LAST_COMMIT_MESSAGE" value="orders table migration" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
