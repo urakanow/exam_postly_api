@@ -126,4 +126,11 @@ public class AdminController : ControllerBase
         
         return Ok("order paid");
     }
+
+    [Route("is-admin")]
+    [HttpGet]
+    public async Task<ActionResult> IsAdmin()
+    {
+        return Ok();//returns 401 or 403 automatiaclly because of authorize
+    }
 }

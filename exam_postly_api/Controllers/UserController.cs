@@ -473,11 +473,6 @@ namespace exam_postly_api.Controllers
             return validationResult;
         }
         
-        // [Route("email-verification")]
-        // [HttpPost(Name = "EmailVerification")]
-        // public async Task<IActionResult> EmailVerification([FromBody] string email)
-        // {
-        //     
-        // }
+        
     }
 }

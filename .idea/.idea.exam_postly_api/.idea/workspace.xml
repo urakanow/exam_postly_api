@@ -9,9 +9,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="25e9feee-7318-41dd-8465-36f7c1b59326" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/exam_postly_api/DTOs/OrderPreviewDTO.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.exam_postly_api/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.exam_postly_api/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exam_postly_api/Controllers/AdminController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Controllers/AdminController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_postly_api/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Controllers/UserController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +56,7 @@
 }</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/exam_postly_api/ApplicationDBContext.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///home/ur1nda/RiderProjects/exam_postly_api/exam_postly_api/Controllers/AdminController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Controllers/AdminController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Controllers/FavoriteController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/exam_postly_api/Controllers/OfferController.cs" root0="FORCE_HIGHLIGHTING" />
@@ -257,7 +258,8 @@
       <workItem from="1755345779514" duration="2951000" />
       <workItem from="1755429183625" duration="9788000" />
       <workItem from="1755787362301" duration="7441000" />
-      <workItem from="1755863818902" duration="1771000" />
+      <workItem from="1755863818902" duration="3983000" />
+      <workItem from="1755940340713" duration="808000" />
     </task>
     <task id="LOCAL-00001" summary="added offer editing">
       <option name="closed" value="true" />
@@ -395,7 +397,23 @@
       <option name="project" value="LOCAL" />
       <updated>1755790352833</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="order endpoints and fake pay">
+      <option name="closed" value="true" />
+      <created>1755867834430</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1755867834430</updated>
+    </task>
+    <task id="LOCAL-00019" summary="orders table migration">
+      <option name="closed" value="true" />
+      <created>1755874849260</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1755874849260</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -433,7 +451,9 @@
     <MESSAGE value="user and offer deletion on admin page" />
     <MESSAGE value="order model + creation in an api controller" />
     <MESSAGE value="order status endpoint" />
-    <option name="LAST_COMMIT_MESSAGE" value="order status endpoint" />
+    <MESSAGE value="order endpoints and fake pay" />
+    <MESSAGE value="orders table migration" />
+    <option name="LAST_COMMIT_MESSAGE" value="orders table migration" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
