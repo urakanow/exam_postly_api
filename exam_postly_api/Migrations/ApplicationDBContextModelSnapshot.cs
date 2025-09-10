@@ -182,8 +182,15 @@ namespace exam_postly_api.Migrations
                     b.Property<int>("BuyerId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("DeliveryAddress")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int>("OfferId")
                         .HasColumnType("integer");
+
+                    b.Property<DateTime?>("PayedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("Status")
                         .HasColumnType("integer");
