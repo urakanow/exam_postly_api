@@ -120,6 +120,7 @@ public class AdminController : ControllerBase
             return NotFound("order not found" + orderId);
 
         order.Status = OrderStatus.Paid;
+        order.PayedAt = DateTime.UtcNow;
         await _dbContext.SaveChangesAsync();
 
         await _emailSender.SendEmailAsync(order.Buyer.Email, "Your receipt", "fake pay was performed on your order");
