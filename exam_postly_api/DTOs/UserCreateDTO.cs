@@ -5,14 +5,18 @@ namespace exam_postly_api.DTOs
 {
     public class UserCreateDTO
     {
-        [Required, NotNull]
+        [Required]
         public string Username { get; set; }
 
-        [Required, NotNull]
+        [Required]
+        [Phone]
+        public string PhoneNumber { get; set; }
+        
+        [Required]
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required, NotNull]
+        [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
     }

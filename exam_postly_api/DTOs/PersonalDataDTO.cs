@@ -17,6 +17,7 @@ public class PersonalDataDTO
     public string Address { get; set; } = "";
     public string ApartmentNumber { get; set; } = "";
     public string PhoneNumber { get; set; } = "";
+    public string ProfilePicture { get; set; } = "";
     
     public PersonalDataDTO(){}
     
@@ -29,5 +30,6 @@ public class PersonalDataDTO
         Address = user.Address;
         ApartmentNumber = user.ApartmentNumber;
         PhoneNumber = user.PhoneNumber;
+        ProfilePicture = user.ProfilePicture;
     }
 }

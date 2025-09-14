@@ -12,6 +12,11 @@ namespace exam_postly_api
         public DbSet<Offer> Offers { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Favorite> Favorites { get; set; }
+        public DbSet<RestoreToken> RestoreTokens { get; set; }
+        public DbSet<VerifyToken> VerifyTokens { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<Chat> Chats { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options) { }
 
@@ -51,6 +56,57 @@ namespace exam_postly_api
                 .WithMany(offer => offer.Favorites)
                 .HasForeignKey(favor => favor.OfferId)
                 .OnDelete(DeleteBehavior.Cascade);
+            
+            modelBuilder.Entity<RestoreToken>().HasKey(restoreToken => restoreToken.Id);
+            modelBuilder.Entity<RestoreToken>()
+                .HasOne(restoreToken => restoreToken.User)
+                .WithMany(user => user.RestoreTokens)
+                .HasForeignKey(restoreToken => restoreToken.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+            
+            modelBuilder.Entity<VerifyToken>().HasKey(verifyToken => verifyToken.Id);
+            modelBuilder.Entity<VerifyToken>()
+                .HasOne(verifyToken => verifyToken.User)
+                .WithOne(user => user.VerifyToken)
+                // .IsRequired()
+                .HasForeignKey<VerifyToken>(verifyToken => verifyToken.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+            
+            modelBuilder.Entity<Message>().HasKey(message => message.Id);
+            modelBuilder.Entity<Message>()
+                .HasOne(message => message.Chat)
+                .WithMany(chat => chat.Messages)
+                .HasForeignKey(message => message.ChatId)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Message>()
+                .HasOne(message => message.Sender)
+                .WithMany()
+                .HasForeignKey(message => message.SenderId)
+                .OnDelete(DeleteBehavior.Cascade);
+            
+            modelBuilder.Entity<Chat>().HasKey(chat => chat.Id);
+            modelBuilder.Entity<Chat>()
+                .HasOne(chat => chat.Buyer)
+                .WithMany(user => user.BuyerChats)
+                .HasForeignKey(chat => chat.BuyerId)
+                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Chat>()
+                .HasOne(chat => chat.Offer)
+                .WithMany()
+                .HasForeignKey(chat => chat.OfferId)
+                .OnDelete(DeleteBehavior.Restrict);
+            
+            modelBuilder.Entity<Order>().HasKey(order => order.Id);
+            modelBuilder.Entity<Order>()
+                .HasOne(order => order.Buyer)
+                .WithMany(user => user.Orders)
+                .HasForeignKey(order => order.BuyerId)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Order>()
+                .HasOne(order => order.Offer)
+                .WithMany()
+                .HasForeignKey(order => order.OfferId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

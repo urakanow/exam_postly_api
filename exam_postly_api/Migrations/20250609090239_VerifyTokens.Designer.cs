@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using exam_postly_api;
@@ -11,9 +12,11 @@ using exam_postly_api;
 namespace exam_postly_api.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250609090239_VerifyTokens")]
+    partial class VerifyTokens
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,27 +24,6 @@ namespace exam_postly_api.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("exam_postly_api.Models.Chat", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("BuyerId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("OfferId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BuyerId");
-
-                    b.HasIndex("OfferId");
-
-                    b.ToTable("Chats");
-                });
 
             modelBuilder.Entity("exam_postly_api.Models.Favorite", b =>
                 {
@@ -86,37 +68,6 @@ namespace exam_postly_api.Migrations
                     b.HasIndex("OfferId");
 
                     b.ToTable("Images");
-                });
-
-            modelBuilder.Entity("exam_postly_api.Models.Message", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("ChatId")
-                        .HasColumnType("uuid");
-
-                    b.Property<bool>("IsRead")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("SenderId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("SendingTimeUTC")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ChatId");
-
-                    b.HasIndex("SenderId");
-
-                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("exam_postly_api.Models.Offer", b =>
@@ -171,37 +122,6 @@ namespace exam_postly_api.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Offers");
-                });
-
-            modelBuilder.Entity("exam_postly_api.Models.Order", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("BuyerId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("DeliveryAddress")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("OfferId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime?>("PayedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BuyerId");
-
-                    b.HasIndex("OfferId");
-
-                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("exam_postly_api.Models.RefreshToken", b =>
@@ -291,10 +211,6 @@ namespace exam_postly_api.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("GoogleId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<bool>("IsVerified")
                         .HasColumnType("boolean");
 
@@ -303,6 +219,7 @@ namespace exam_postly_api.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("PasswordHash")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
@@ -313,14 +230,8 @@ namespace exam_postly_api.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("ProfilePicture")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("Salt")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Username")
@@ -358,25 +269,6 @@ namespace exam_postly_api.Migrations
                     b.ToTable("VerifyTokens");
                 });
 
-            modelBuilder.Entity("exam_postly_api.Models.Chat", b =>
-                {
-                    b.HasOne("exam_postly_api.Models.User", "Buyer")
-                        .WithMany("BuyerChats")
-                        .HasForeignKey("BuyerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("exam_postly_api.Models.Offer", "Offer")
-                        .WithMany()
-                        .HasForeignKey("OfferId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Buyer");
-
-                    b.Navigation("Offer");
-                });
-
             modelBuilder.Entity("exam_postly_api.Models.Favorite", b =>
                 {
                     b.HasOne("exam_postly_api.Models.Offer", "Offer")
@@ -407,25 +299,6 @@ namespace exam_postly_api.Migrations
                     b.Navigation("Offer");
                 });
 
-            modelBuilder.Entity("exam_postly_api.Models.Message", b =>
-                {
-                    b.HasOne("exam_postly_api.Models.Chat", "Chat")
-                        .WithMany("Messages")
-                        .HasForeignKey("ChatId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("exam_postly_api.Models.User", "Sender")
-                        .WithMany()
-                        .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Chat");
-
-                    b.Navigation("Sender");
-                });
-
             modelBuilder.Entity("exam_postly_api.Models.Offer", b =>
                 {
                     b.HasOne("exam_postly_api.Models.User", "User")
@@ -435,25 +308,6 @@ namespace exam_postly_api.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("exam_postly_api.Models.Order", b =>
-                {
-                    b.HasOne("exam_postly_api.Models.User", "Buyer")
-                        .WithMany("Orders")
-                        .HasForeignKey("BuyerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("exam_postly_api.Models.Offer", "Offer")
-                        .WithMany()
-                        .HasForeignKey("OfferId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Buyer");
-
-                    b.Navigation("Offer");
                 });
 
             modelBuilder.Entity("exam_postly_api.Models.RefreshToken", b =>
@@ -489,11 +343,6 @@ namespace exam_postly_api.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("exam_postly_api.Models.Chat", b =>
-                {
-                    b.Navigation("Messages");
-                });
-
             modelBuilder.Entity("exam_postly_api.Models.Offer", b =>
                 {
                     b.Navigation("Favorites");
@@ -503,13 +352,9 @@ namespace exam_postly_api.Migrations
 
             modelBuilder.Entity("exam_postly_api.Models.User", b =>
                 {
-                    b.Navigation("BuyerChats");
-
                     b.Navigation("Favorites");
 
                     b.Navigation("Offers");
-
-                    b.Navigation("Orders");
 
                     b.Navigation("RefreshTokens");
 

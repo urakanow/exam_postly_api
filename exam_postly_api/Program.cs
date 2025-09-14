@@ -1,10 +1,12 @@
 using Microsoft.EntityFrameworkCore;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json.Serialization;
+using exam_postly_api.CleanupServices;
+using exam_postly_api.Interfaces;
 using exam_postly_api.Services;
+using exam_postly_api.Utilities;
 
 
 namespace exam_postly_api
@@ -17,7 +19,6 @@ namespace exam_postly_api
             string developmentCors = "DevelopmentCorsPolicy";
 
             var builder = WebApplication.CreateBuilder(args);
-
             
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
@@ -33,11 +34,21 @@ namespace exam_postly_api
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
                 };
             });
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy(IdentityData.AdminPolicyName, policy => policy.RequireRole("admin"));
+            });
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseNpgsql(connectionString));
 
             builder.Services.AddHostedService<RefreshTokenCleanupService>();
+            builder.Services.AddHostedService<RestoreTokenCleanupService>();
+            builder.Services.AddHostedService<VerifyTokenCleanupService>();
+            builder.Services.AddTransient<IEmailSender, EmailSender>();
+
+            builder.Services.AddScoped<UserService>();
+            builder.Services.AddScoped<ChatService>();
 
             // Add services to the container.
 
@@ -45,7 +56,9 @@ namespace exam_postly_api
                 .AddJsonOptions(options => 
                 {
                     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-                });;
+                });
+
+            builder.Services.AddSignalR();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
@@ -100,6 +113,8 @@ namespace exam_postly_api
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseWebSockets();
+            app.MapHub<ChatHub>("/api/chatHub"); 
 
             app.MapControllers();
 

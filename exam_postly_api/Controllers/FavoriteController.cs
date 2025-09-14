@@ -59,7 +59,7 @@ namespace exam_postly_api.Controllers
             if (user == null)
                 return NotFound("user not found");
             
-            var favorite = await _dbContext.Favorites.FirstOrDefaultAsync(f => f.UserId == userId);
+            var favorite = await _dbContext.Favorites.FirstOrDefaultAsync(f => f.OfferId == offerId);
             if (favorite == null)
                 return NotFound("favorite not found");
             
@@ -107,7 +107,8 @@ namespace exam_postly_api.Controllers
             // if (offer == null)
             //     return NotFound("offer not found");
             
-            var isFavorite = await _dbContext.Favorites.FirstOrDefaultAsync(f => f.OfferId == offerId);
+            var isFavorite = await _dbContext.Favorites
+                .FirstOrDefaultAsync(f => f.OfferId == offerId  && f.UserId == userId);
              
             return Ok(isFavorite != null);
         }
