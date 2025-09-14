@@ -9,5 +9,4 @@ public class OrderCreateDTO
     
     required
         public string DeliveryAddress { get; set; }
-    
 }

@@ -11,12 +11,16 @@ public class Order
     
     required
         public int OfferId { get; set; }
+    
+    required
+        public string DeliveryAddress { get; set; }
         
     required
         public string DeliveryAddress { get; set; }
 
     public DateTime? PayedAt { get; set; } = null;
     public OrderStatus Status { get; set; } = OrderStatus.Unpaid;
+    public DateTime? PayedAt { get; set; } = null;
     
     public virtual User Buyer { get; set; }
     public virtual Offer Offer { get; set; }

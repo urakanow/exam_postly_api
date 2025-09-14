@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using exam_postly_api.DTOs;
+using exam_postly_api.Enums;
 using exam_postly_api.Models;
 using exam_postly_api.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -37,6 +38,7 @@ public class OrderController : ControllerBase
         {
             BuyerId = userId,
             OfferId = dto.OfferId,
+            DeliveryAddress = dto.DeliveryAddress,
             Buyer = user,
             Offer = offer,
             DeliveryAddress = dto.DeliveryAddress
@@ -81,14 +83,6 @@ public class OrderController : ControllerBase
         //     DeliveryAddress = order.DeliveryAddress,
         // }).ToList();
         var orderDTOs = orders.Select(order => new OrderPreviewDTO()
-        {
-            OfferTitle = order.Offer.Title,
-            OrderId = order.Id,
-            Status = order.Status
-        }).ToList();
-        return Ok(orderDTOs);
-    }
-
     [Route("order/{id}")]
     [HttpGet]
     public async Task<ActionResult> GetOrder(Guid id)
@@ -105,5 +99,4 @@ public class OrderController : ControllerBase
             PayedAt = order.PayedAt,
         };
         return Ok(orderDTO);
-    }
 }

@@ -8,7 +8,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+
     <list default="true" id="25e9feee-7318-41dd-8465-36f7c1b59326" name="Changes" comment="" />
+
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -86,6 +88,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     ".NET Launch Settings Profile.exam_postly_api: https.executor": "Run",
@@ -256,6 +259,7 @@
       <workItem from="1755787362301" duration="7441000" />
       <workItem from="1755863818902" duration="3983000" />
       <workItem from="1755940340713" duration="808000" />
+
       <workItem from="1757786824738" duration="808000" />
       <workItem from="1757831052438" duration="7924000" />
     </task>
