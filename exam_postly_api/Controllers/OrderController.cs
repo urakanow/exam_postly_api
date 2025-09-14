@@ -4,6 +4,7 @@ using exam_postly_api.Models;
 using exam_postly_api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace exam_postly_api.Controllers;
 
@@ -37,7 +38,8 @@ public class OrderController : ControllerBase
             BuyerId = userId,
             OfferId = dto.OfferId,
             Buyer = user,
-            Offer = offer
+            Offer = offer,
+            DeliveryAddress = dto.DeliveryAddress
         };
         
         await _dbContext.Orders.AddAsync(newOrder);
@@ -59,5 +61,49 @@ public class OrderController : ControllerBase
             return Unauthorized();
         
         return Ok(order.Status);
+    }
+
+    [Route("my-orders")]
+    [HttpGet]
+    public async Task<ActionResult> GetMyOrders()
+    {
+        var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+        var user = await _dbContext.Users
+            .Include(u => u.Orders)
+            .ThenInclude(o => o.Offer)
+            .FirstOrDefaultAsync(u => u.Id == userId);
+
+        var orders = user.Orders;
+        // var orderDTOs = orders.Select(order => new OrderInfoDTO()
+        // {
+        //     OfferTitle = order.Offer.Title,
+        //     OfferPrice = order.Offer.Price,
+        //     DeliveryAddress = order.DeliveryAddress,
+        // }).ToList();
+        var orderDTOs = orders.Select(order => new OrderPreviewDTO()
+        {
+            OfferTitle = order.Offer.Title,
+            OrderId = order.Id,
+            Status = order.Status
+        }).ToList();
+        return Ok(orderDTOs);
+    }
+
+    [Route("order/{id}")]
+    [HttpGet]
+    public async Task<ActionResult> GetOrder(Guid id)
+    {
+        var order = await _dbContext.Orders
+            .Include(o => o.Offer)
+            .FirstOrDefaultAsync(o => o.Id == id);
+
+        var orderDTO = new OrderInfoDTO()
+        {
+            OfferTitle = order.Offer.Title,
+            OfferPrice = order.Offer.Price,
+            DeliveryAddress = order.DeliveryAddress,
+            PayedAt = order.PayedAt,
+        };
+        return Ok(orderDTO);
     }
 }

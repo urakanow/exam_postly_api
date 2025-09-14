@@ -44,6 +44,7 @@ public class ChatService
     {
         var chat = await _dbContext.Chats
             .Include(chat => chat.Messages)
+            .Include(chat => chat.Offer)
             .FirstOrDefaultAsync(chat => chat.Id == chatId);
         return chat;
     }

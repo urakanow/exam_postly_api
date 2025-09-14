@@ -14,6 +14,7 @@
         public string Role { get; set; } = "user";
         public string? PasswordHash { get; set; }
         public string? Salt { get; set; }
+        public string? ProfilePicture { get; set; } = "icons8-name-96_1_mgaark";
         public string PhoneNumber { get; set; } = "";
         public string GoogleId { get; set; } = "";
         public string FirstName { get; set; } = "";

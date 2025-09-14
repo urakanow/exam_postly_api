@@ -7,4 +7,7 @@ public class OrderCreateDTO
     required
         public int OfferId { get; set; }
     
+    required
+        public string DeliveryAddress { get; set; }
+    
 }
