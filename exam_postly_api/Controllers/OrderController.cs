@@ -40,7 +40,8 @@ public class OrderController : ControllerBase
             OfferId = dto.OfferId,
             DeliveryAddress = dto.DeliveryAddress,
             Buyer = user,
-            Offer = offer
+            Offer = offer,
+            DeliveryAddress = dto.DeliveryAddress
         };
         
         await _dbContext.Orders.AddAsync(newOrder);
@@ -66,57 +67,36 @@ public class OrderController : ControllerBase
 
     [Route("my-orders")]
     [HttpGet]
-    public async Task<ActionResult<List<OrderPreviewDTO>>> GetMyOrders()
+    public async Task<ActionResult> GetMyOrders()
     {
         var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
         var user = await _dbContext.Users
-            .Include(user => user.Orders)
-            .ThenInclude(order => order.Offer)
-            .FirstOrDefaultAsync(user => user.Id == userId);
-        
-        if (user == null)
-            return NotFound();
+            .Include(u => u.Orders)
+            .ThenInclude(o => o.Offer)
+            .FirstOrDefaultAsync(u => u.Id == userId);
 
-        var orders = user.Orders.ToList();
-        var orderDTOs = orders.Select(order => new OrderPreviewDTO
-        {
-            OfferTitle = order.Offer.Title,
-            OrderId = order.Id,
-            Status = order.Status
-        }).ToList();
-        
-        return Ok(orderDTOs);
-    }
-
+        var orders = user.Orders;
+        // var orderDTOs = orders.Select(order => new OrderInfoDTO()
+        // {
+        //     OfferTitle = order.Offer.Title,
+        //     OfferPrice = order.Offer.Price,
+        //     DeliveryAddress = order.DeliveryAddress,
+        // }).ToList();
+        var orderDTOs = orders.Select(order => new OrderPreviewDTO()
     [Route("order/{id}")]
     [HttpGet]
-    public async Task<ActionResult<OrderInfoDTO>> GetOrder(Guid id)
+    public async Task<ActionResult> GetOrder(Guid id)
     {
         var order = await _dbContext.Orders
-            .Include(order => order.Buyer)
-            .Include(order => order.Offer)
-            .ThenInclude(offer => offer.User)
-            .FirstOrDefaultAsync(order => order.Id == id);
-        if (order == null)
-            return NotFound();
-        
-        var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-        if(userId != order.Buyer.Id && userId != order.Offer.User.Id)
-            return Unauthorized("the order is not yours");
-        
-        if(order.Status == OrderStatus.Unpaid)
-            return BadRequest("the order is not paid");
-        
-        var offer = order.Offer;
+            .Include(o => o.Offer)
+            .FirstOrDefaultAsync(o => o.Id == id);
 
-        var orderInfo = new OrderInfoDTO
+        var orderDTO = new OrderInfoDTO()
         {
-            OfferTitle = offer.Title,
-            OfferPrice = offer.Price,
+            OfferTitle = order.Offer.Title,
+            OfferPrice = order.Offer.Price,
             DeliveryAddress = order.DeliveryAddress,
-            PayedAt = order.PayedAt.Value
+            PayedAt = order.PayedAt,
         };
-        
-        return Ok(orderInfo);
-    }
+        return Ok(orderDTO);
 }

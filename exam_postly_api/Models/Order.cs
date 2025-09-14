@@ -15,6 +15,10 @@ public class Order
     required
         public string DeliveryAddress { get; set; }
         
+    required
+        public string DeliveryAddress { get; set; }
+
+    public DateTime? PayedAt { get; set; } = null;
     public OrderStatus Status { get; set; } = OrderStatus.Unpaid;
     public DateTime? PayedAt { get; set; } = null;
     

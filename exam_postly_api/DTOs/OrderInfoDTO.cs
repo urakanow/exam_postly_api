@@ -6,5 +6,4 @@ public class OrderInfoDTO
     public double OfferPrice { get; set; }
     public string DeliveryAddress { get; set; }
     public DateTime PayedAt { get; set; }
-    // public string 
 }
