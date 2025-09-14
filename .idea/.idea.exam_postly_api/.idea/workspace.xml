@@ -8,18 +8,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="25e9feee-7318-41dd-8465-36f7c1b59326" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/exam_postly_api/DTOs/OrderInfoDTO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.exam_postly_api/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.exam_postly_api/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_postly_api/Controllers/AdminController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Controllers/AdminController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_postly_api/Controllers/OrderController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Controllers/OrderController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_postly_api/DTOs/OrderCreateDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/DTOs/OrderCreateDTO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_postly_api/DTOs/PersonalDataDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/DTOs/PersonalDataDTO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_postly_api/Migrations/ApplicationDBContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Migrations/ApplicationDBContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_postly_api/Models/Order.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Models/Order.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_postly_api/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Models/User.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_postly_api/Services/ChatService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/exam_postly_api/Services/ChatService.cs" afterDir="false" />
-    </list>
+    <list default="true" id="25e9feee-7318-41dd-8465-36f7c1b59326" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,7 +33,7 @@
     </favorite-branches>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dev" />
+        <entry key="$PROJECT_DIR$" value="design" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -104,7 +93,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "dev",
+    "git-widget-placeholder": "#30 on design",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -462,7 +451,8 @@
     <MESSAGE value="order status endpoint" />
     <MESSAGE value="order endpoints and fake pay" />
     <MESSAGE value="orders table migration" />
-    <option name="LAST_COMMIT_MESSAGE" value="orders table migration" />
+    <MESSAGE value="design" />
+    <option name="LAST_COMMIT_MESSAGE" value="design" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
